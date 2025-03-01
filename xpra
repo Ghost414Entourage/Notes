@@ -1,0 +1,1458 @@
+sudo yum reinstall \*
+
+sudo dnf upgrade -b
+
+sudo rpm -Va
+
+sudo yum reinstall *
+
+sudo rpm --rebuilddb
+
+sudo dnf check
+
+
+useradd linux
+
+useradd -d linux 
+
+passwd linux
+
+sudo usermod -aG wheel linux
+
+sudo visudo
+
+grep wheel /etc/group
+
+cat /etc/group
+
+
+
+
+sudo dnf update -y
+
+dnf upgrade -x kernel
+
+dnf install nano git dnsutils curl wget lsof git nano 
+
+
+dnf config-manager --dump
+
+dnf groupinfo workstation
+
+sudo dnf groupinfo "Development Tools"
+
+sudo dnf groupinstall "Development Tools"
+
+sudo dnf repolist --all
+
+sudo dnf repolist
+
+sudo dnf repolist all
+
+sudo dnf config-manager --add-repo 
+
+sudo dnf config-manager --set-enabled \*
+
+sudo dnf config-manager --set-enabled
+
+sudo dnf config-manager --set-enabled ol9_MODRHCK
+sudo dnf config-manager --set-enabled ol9_RDMA
+sudo dnf config-manager --set-enabled ol9_codeready_builder
+sudo dnf config-manager --set-enabled ol9_developer
+sudo dnf config-manager --set-enabled ol9_developer_EPEL
+sudo dnf config-manager --set-enabled ol9_developer_UEKR7
+sudo dnf config-manager --set-enabled ol9_developer_kvm_utils
+sudo dnf config-manager --set-enabled ol9_distro_builder
+sudo dnf config-manager --set-enabled ol9_kvm_utils
+sudo dnf config-manager --set-enabled ol9_u0_baseos_base
+sudo dnf config-manager --set-enabled ol9_u1_baseos_base
+sudo dnf config-manager --set-enabled ol9_u2_baseos_base
+sudo dnf config-manager --set-enabled ol9_u3_baseos_base
+sudo dnf config-manager --set-enabled ol9_u3_security_validation
+sudo dnf config-manager --set-enabled ol9_u4_baseos_base
+sudo dnf config-manager --set-enabled ol9_x86_64_userspace_ksplice
+
+
+sudo dnf repolist all
+
+
+sudo dnf install --refresh python3-urllib3
+
+sudo dnf reinstall python3-oraclelinux-utils
+
+dnf update
+dnf clean all
+dnf makecache
+
+sudo dnf grouplist
+
+sudo dnf groupinstall base-x
+
+sudo dnf group install "Virtualization Client" "Virtualization Hypervisor" "Virtualization Platform" "Virtualization Tools"
+
+
+
+
+dnf --version
+
+cat /etc/os-release
+
+rpm -E %rhel
+
+
+
+dnf group list --hidden
+
+sudo dnf group list -v hidden
+
+dnf group list --installed
+
+dnf groupinstall workstation
+
+dnf repolist
+
+dnf repoinfo <repository_name>
+
+dnf info <package_name>
+
+dnf install dnf-automatic
+
+rpm -qi dnf-automatic
+
+nano /etc/dnf/automatic.conf
+
+dnf distro-sync
+
+dnf repoquery <package_name>
+
+dnf provides <file_name>
+
+sudo dnf provides */useradd
+
+dnf group list
+
+dnf group info "<group_name>"
+
+dnf group summary
+
+
+
+nano /etc/ssh/sshd_config
+
+systemctl restart sshd
+
+sshd -t
+
+sshd -T | grep port
+
+sestatus
+
+semanage port -a -t ssh_port_t -p tcp 2222
+
+systemctl restart ssh.service
+
+sudo dnf install -y epel-release
+
+sudo systemctl set-default graphical.target
+
+sudo systemctl start graphical.target
+
+sudo dnf groupinstall -y "Server with GUI"
+
+echo $XDG_SESSION_DESKTOP
+
+dnf install systemd-resolved
+
+localectl
+
+
+sudo dnf install dnf-plugins-core 
+
+sudo dnf config-manager --add-repo https://packages.microsoft.com/config/rhel/9/prod.repo
+
+sudo dnf config-manager --set-enabled packages-microsoft-com-prod
+
+sudo dnf config-manager --set-enabled packages-microsoft-com-prod
+
+sudo dnf clean all
+sudo dnf makecache
+
+
+
+
+cp /etc/X11/xinit/xinitrc ~/.xinitrc
+
+
+nano ~/.xinitrc
+
+exec startxfce4
+
+exec startplasma-x11
+
+startx
+
+echo "exec startkde" > ~/.xinitrc
+
+cat /etc/X11/xinit/Xclients
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+sudo nano /etc/sddm.conf
+
+[General]
+HaltCommand=/usr/bin/systemctl poweroff
+RebootCommand=/usr/bin/systemctl reboot
+
+[Session]
+Session=plasma.desktop
+
+
+sudo ln -sf /usr/share/xsessions/plasma.desktop /etc/sysconfig/desktop
+
+sudo nano /etc/gdm/custom.conf
+
+[daemon]
+DefaultSession=plasma.desktop
+
+
+systemctl get-default
+
+
+sudo dnf repolist
+
+sudo dnf install -y oracle-epel-release-el9
+sudo dnf config-manager --set-enabled ol9_developer_EPEL
+
+
+sudo nano /etc/sysconfig/desktop
+
+DESKTOP="KDE"
+
+
+echo $XDG_SESSION_DESKTOP
+
+
+sudo dnf groupinstall "Development Tools" -y
+sudo dnf install gcc gcc-c++ make python3 python3-pip python3-devel \
+    libX11-devel libXext-devel libXtst-devel libXcomposite-devel \
+    libXdamage-devel libXrender-devel mesa-libGL-devel mesa-libGLU-devel \
+    libvpx-devel libwebp-devel libx264-devel libjpeg-turbo-devel \
+    ffmpeg ffmpeg-devel libavcodec-devel libavutil-devel \
+    libavformat-devel dbus-devel xorg-x11-server-Xorg -y
+
+
+sudo dnf install -y https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-9.noarch.rpm
+sudo dnf install -y https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-9.noarch.rpm
+
+
+sudo dnf install -y oracle-epel-release-el9
+
+
+sudo dnf install libvpx-devel libx264-devel ffmpeg ffmpeg-devel \
+    libavcodec-devel libavutil-devel libavformat-devel -y
+
+
+sudo dnf groupinstall "Development Tools" -y
+sudo dnf install gcc gcc-c++ make python3 python3-pip python3-devel \
+    libX11-devel libXext-devel libXtst-devel libXcomposite-devel \
+    libXdamage-devel libXrender-devel mesa-libGL-devel mesa-libGLU-devel \
+    libjpeg-turbo-devel libwebp-devel dbus-devel xorg-x11-server-Xorg -y
+
+
+
+wget https://xpra.org/src/Xpra-latest.tar.xz
+
+mkdir xpra 
+
+cd xpra 
+
+latest_xpra=$(curl -s https://xpra.org/src/ | grep -oP 'href="\Kxpra-[0-9.]+\.tar\.xz' | sort -V | tail -n 1) curl -O https://xpra.org/src/$latest_xpra
+
+latest_xpra=$(wget -qO- https://xpra.org/src/ | grep -oP 'href="\Kxpra-[0-9.]+\.tar\.xz' | sort -V | tail -n 1) wget https://xpra.org/src/$latest_xpra
+
+tar -xvf xpra-*
+
+ cd xpra-6.2.1
+
+
+
+cd ..
+
+mkdir xpra-html5
+
+cd xpra-html5
+
+latest_html5=$(curl -s https://xpra.org/src/ | grep -oP 'href="\Kxpra-html5-[0-9.]+\.tar\.xz' | sort -V | tail -n 1) curl -O https://xpra.org/src/$latest_html5
+
+latest_html5=$(wget -qO- https://xpra.org/src/ | grep -oP 'href="\Kxpra-html5-[0-9.]+\.tar\.xz' | sort -V | tail -n 1) wget https://xpra.org/src/$latest_html5
+
+tar -xvf xpra-*
+
+
+
+sudo yum install gcc gcc-c++ make zlib-devel bzip2-devel readline-devel sqlite-devel wget curl llvm tk-devel libffi-devel xz-devel
+sudo dnf install gcc zlib-devel bzip2-devel readline-devel sqlite-devel openssl-devel tk-devel libffi-devel
+
+
+curl https://pyenv.run | bash
+
+sudo nano /etc/profile.d/pyenv.sh
+
+export PATH="/root/.pyenv/bin:$PATH"
+eval "$(/root/.pyenv/bin/pyenv init --path)"
+eval "$(/root/.pyenv/bin/pyenv init -)"
+eval "$(/root/.pyenv/bin/pyenv virtualenv-init -)"
+
+export PATH="$HOME/.pyenv/bin:$PATH"
+eval "$(pyenv init --path)"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
+
+
+sudo chmod +x /etc/profile.d/pyenv.sh
+source /etc/profile.d/pyenv.sh
+
+sudo dnf groupinstall "Development Tools" -y
+sudo dnf install gcc openssl-devel bzip2-devel libffi-devel zlib-devel -y
+
+pyenv install --list
+
+PYENV_DEBUG=1 pyenv install 3.12-dev
+
+pyenv global 3.12-dev
+
+pyenv versions
+python3 --version
+python --version
+
+pyenv rehash
+
+exec "$SHELL"
+
+dnf repolist enabled
+
+ln -sf $(pyenv which python) /usr/bin/python3
+
+
+wget -O /etc/yum.repos.d/xpra.repo https://raw.githubusercontent.com/Xpra-org/xpra/master/packaging/repos/oraclelinux/xpra-lts.repo
+
+sudo dnf clean all
+sudo dnf makecache
+
+sudo dnf install xpra
+
+
+
+
+sudo dnf config-manager --set-enabled ol9_codeready_builder
+
+sudo dnf repolist all
+
+
+sudo dnf config-manager --set-enabled ol9_MODRHCK 
+
+sudo dnf repolist all 
+
+dnf update 
+
+pip3 install setuptools --root-user-action=warn
+
+pip3 install setuptools --root-user-action=ignore
+
+python3 -m venv myenv
+source myenv/bin/activate
+pip install setuptools
+
+pip3 install distutils-pytest --root-user-action=ignore
+
+python3 -m ensurepip --upgrade
+python3 -m pip install setuptools distutils
+
+python3 ./setup.py install-repo
+
+sudo dnf install python3-devel
+
+pip3 install Cython --root-user-action=ignore
+
+sudo dnf install xxhash-devel
+
+sudo nano /etc/profile.d/xxhash.sh
+
+export PKG_CONFIG_PATH=/path/to/xxhash.pc
+
+sudo chmod +x /etc/profile.d/xxhash.sh
+
+source /etc/profile
+
+sudo dnf install xorg-x11-server-devel
+
+sudo nano /etc/profile.d/xxkbfile.sh
+
+export PKG_CONFIG_PATH=/usr/lib/pkgconfig:$PKG_CONFIG_PATH
+
+sudo chmod +x /etc/profile.d/xxkbfile.sh
+
+source /etc/profile
+
+
+
+
+
+
+
+
+
+
+
+nano /root/.vnc/xstartup
+
+#!/bin/sh
+xrdb $HOME/.Xresources
+startxfce4 &
+
+
+sudo nano /etc/systemd/system/vncserver@:1.service
+
+[Unit]
+Description=Start TigerVNC server at :1
+After=syslog.target network.target
+
+[Service]
+Type=forking
+User=root
+PAMName=login
+PIDFile=/home/root/.vnc/%H:1.pid
+ExecStart=/usr/bin/vncserver :1 -geometry 1280x1024 -depth 24
+ExecStop=/usr/bin/vncserver -kill :1
+
+[Install]
+WantedBy=multi-user.target
+
+
+sudo systemctl daemon-reload
+sudo systemctl start vncserver@:1
+sudo systemctl enable vncserver@:1
+
+
+
+
+
+
+
+
+touch ~/.Xauthority
+
+chmod 600 ~/.Xauthority
+chown <user>:<user> ~/.Xauthority
+
+xauth generate :1 . trusted
+
+
+xauth list
+
+
+export XAUTHORITY=~/.Xauthority
+
+
+ls -l ~/.Xauthority
+
+
+
+
+
+nano ~/.vnc/xstartup
+
+#!/bin/sh
+xrdb $HOME/.Xresources
+startxfce4 &
+
+
+vncserver -kill :1
+vncserver :1
+
+
+echo $DISPLAY
+echo $XAUTHORITY
+
+export XAUTHORITY=~/.Xauthority
+
+
+
+
+sudo dnf install oracle-epel-release-el9
+sudo yum-config-manager --enable ol9_developer_EPEL
+
+sudo dnf groupinstall "base-x"
+
+sudo dnf groupinfo "Xfce"
+
+sudo groupinstall "Xfce"
+
+yum groupinstall "X Window System"
+yum install xorg-x11-utils
+
+
+
+
+
+
+
+
+
+
+
+X -version
+
+Xorg -version
+
+rpm -qa |grep xorg-x11-server-Xorg
+
+rpm -qa | grep xorg
+
+yum list installed | grep xorg
+
+sudo nano /etc/profile.d/custom_path.sh
+
+export PATH=$PATH:/usr/bin
+
+sudo chmod +x /etc/profile.d/custom_path.sh
+
+source /etc/profile.d/custom_path.sh
+
+echo $PATH
+
+cat /etc/os-release
+
+uname -m
+
+sudo dnf repolist --all
+
+sudo dnf config-manager --set-enabled ol9_MODRHCK
+
+sudo dnf config-manager --set-enabled <repo-id>
+
+sudo dnf config-manager --set-disabled <repo-id>
+
+sudo dnf config-manager --add-repo=<repo-url>
+
+sudo vi /etc/yum.repos.d/epel.repo
+
+sudo dnf install mesa-libGL-devel libX11-devel libxcb-devel
+
+sudo dnf groupinstall "Development Tools"
+
+git clone https://gitlab.freedesktop.org/xorg/util/macros.git
+
+cd macros
+
+./autogen.sh --prefix=/usr
+
+make
+
+sudo make install
+
+sudo dnf groupinstall -y base-x
+
+sudo dnf install dbus dbus-x11
+
+sudo systemctl start dbus
+
+sudo systemctl enable dbus
+
+sudo systemctl restart dbus
+
+sudo systemctl status dbus
+
+sudo systemctl start dbus.socket
+
+sudo systemctl enable dbus.socket
+
+sudo systemctl restart dbus.socket
+
+sudo systemctl status dbus.socket
+
+systemctl status dbus.socket
+
+ps aux | grep dbus
+
+sudo dbus-daemon --system
+
+sudo dnf install xorg-x11-drv-* mesa-dri-drivers
+
+touch /root/.Xauthority
+
+export DISPLAY=:0
+
+echo $DISPLAY
+
+cat /var/log/Xorg.0.log | grep EE
+
+ps aux | grep X
+
+sudo chown -R $USER:$USER /tmp /var/run
+
+sudo chown -R root:root /tmp /var/run
+
+sudo chmod 1777 /tmp
+sudo chown root:root /tmp
+sudo chmod 755 /run
+sudo chown root:root /run
+sudo ls -ld /var/run/dbus
+sudo chown -R dbus:dbus /var/run/dbus
+
+xauth generate :0 . trusted
+xauth add :0 . $(xauth list :0 | tail -1 | awk '{print $3}')
+
+startx
+
+ls -l /root/.Xauthority
+chmod 600 /root/.Xauthority
+
+X :0
+
+rpm -qa | grep xauth
+
+
+
+
+
+
+sudo dnf groupinstall \
+"Server with GUI" \
+"Server" \
+"Minimal Install" \
+"Workstation" \
+"KDE Plasma Workspaces" \
+"Virtualization Host" \
+"Custom Operating System" \
+"KVM platform specific packages" \
+"Base" \
+"Core"
+
+
+
+
+
+
+
+
+
+
+
+
+
+sudo dnf install -y git
+
+sudo dnf install -y autoconf
+
+sudo dnf install -y automake
+
+sudo dnf install -y gettext-devel
+
+sudo dnf install -y make
+
+sudo dnf install -y libtool
+
+sudo dnf install -y pkg-config
+
+sudo dnf install -y bison
+
+sudo dnf install -y flex
+
+sudo dnf install -y gcc
+
+sudo dnf install -y gettext
+
+sudo dnf install -y gperf
+
+sudo dnf install -y m4
+
+sudo dnf install -y ncurses-devel
+
+sudo dnf install -y perl
+
+sudo dnf install -y intltool
+
+sudo dnf install -y libpng 
+
+sudo dnf install -y llvm
+
+sudo dnf install -y libtalloc
+
+sudo dnf install -y zlib
+
+sudo dnf install -y libgbm
+
+sudo dnf install -y libgcrypt
+
+sudo dnf install -y libmd
+
+sudo dnf install -y fontconfig
+
+sudo dnf install -y freetype
+
+sudo dnf install -y asciidoc
+
+sudo dnf install -y doxygen
+
+sudo dnf install -y xmlto
+
+sudo dnf install -y pixman
+
+sudo dnf install -y xkeyboard-config
+
+sudo dnf install -y libevdev
+
+sudo dnf install meson ninja-build -y 
+
+sudo dnf install python3-pip -y 
+
+sudo dnf update --allowerasing
+
+sudo dnf clean all
+
+sudo dnf update
+
+sudo dnf --disablerepo=ol9_developer_EPEL update
+
+sudo dnf update --skip-broken
+
+sudo dnf update --nobest 
+
+sudo dnf upgrade --best
+
+dnf --setopt=debuglevel=3 update
+
+dnf --setopt=debuglevel=10 update
+
+dnf --setopt=debuglevel=2 update
+
+yum --setopt=debuglevel=2 update
+
+strace -f -e trace=all dnf --setopt=debuglevel=10 update
+
+dnf --setopt=debuglevel=10 update --best --allowerasing
+
+dnf -v update
+
+yum -v update
+
+dnf -d 3 update
+
+dnf -d 10 update
+
+
+
+sudo dnf install -y libmtdev        sudo yum install mtdev
+
+sudo dnf install -y libudev          sudo yum install -y systemd-libs
+
+ls /lib64 | grep libudev
+
+
+sudo dnf install -y libcrypto         sudo yum install -y openssl
+
+ls /lib64 | grep libcrypto
+
+
+sudo dnf install -y libsha1
+
+echo -n "test" | openssl dgst -sha1
+
+
+sudo dnf install -y xsltproc           sudo yum install -y libxslt
+
+xsltproc --version
+
+sudo dnf install -y mesa             sudo yum install -y mesa-dri-drivers mesa-libGL
+
+ls /usr/lib64 | grep libGL
+
+sudo dnf install x11vnc net-tools 
+
+
+
+
+
+
+
+sudo dnf history
+
+sudo dnf history rollback <transaction_id>
+
+
+
+
+sudo dnf upgrade --refresh
+
+dnf group list --hidden
+
+
+
+dnf group list --hidden | awk -F" - " '/   / {print $1}' | xargs -I{} sudo dnf group install "{}" -y
+
+
+
+sudo dnf groupinstall -y "Server with GUI" 
+
+sudo dnf groupinstall -y "Server"  
+
+sudo dnf groupinstall -y "Minimal Install" 
+
+sudo dnf groupinstall -y "Workstation"  
+
+sudo dnf groupinstall -y "KDE Plasma Workspaces"  
+
+sudo dnf groupinstall -y "Virtualization Host"  
+
+sudo dnf groupinstall -y "Custom Operating System" 
+
+sudo dnf groupinstall -y "KDE"  
+
+sudo dnf groupinstall -y "base-x"  
+
+sudo dnf groupinstall -y "Container Management"  
+
+sudo dnf groupinstall -y "Guest Desktop Agents"  
+
+sudo dnf groupinstall -y "Input Methods"  
+
+sudo dnf groupinstall -y "Internet Browser"  
+
+sudo dnf groupinstall -y "Multimedia" 
+
+sudo dnf groupinstall -y "KVM platform specific packages" 
+
+sudo dnf groupinstall -y "Printing Client"  
+
+sudo dnf groupinstall -y "Virtualization Hypervisor"  
+
+sudo dnf groupinstall -y "Virtualization Tools"  
+
+sudo dnf groupinstall -y "Base"  
+
+sudo dnf groupinstall -y "Core"  
+
+sudo dnf groupinstall -y "Fonts"  
+
+sudo dnf groupinstall -y "GNOME" 
+
+sudo dnf groupinstall -y "Hardware Monitoring Utilities"
+
+sudo dnf groupinstall -y "Hardware Support" 
+
+sudo dnf groupinstall -y "Headless Management" 
+
+sudo dnf groupinstall -y "Common NetworkManager submodules" 
+
+sudo dnf groupinstall -y "Server product core" 
+
+sudo dnf groupinstall -y "Standard" 
+
+sudo dnf groupinstall -y "Workstation product core" 
+
+sudo dnf groupinstall -y "Critical Path (KDE)" 
+
+sudo dnf groupinstall -y "Fedora Packager" 
+
+sudo dnf groupinstall -y "firefox" 
+
+sudo dnf groupinstall -y "KDE Applications" 
+
+sudo dnf groupinstall -y "KDE Educational applications" 
+
+sudo dnf groupinstall -y "KDE Multimedia support" 
+
+sudo dnf groupinstall -y "KDE Office" 
+
+sudo dnf groupinstall -y "KDE Software Development" 
+
+sudo dnf groupinstall -y "KDE Frameworks 5 Software Development" 
+
+sudo dnf groupinstall -y "Xfce" 
+
+sudo dnf groupinstall -y "Backup Client"
+
+sudo dnf groupinstall -y "Conflicts AppStream" 
+
+sudo dnf groupinstall -y "Console Internet Tools"
+
+sudo dnf groupinstall -y "Debugging Tools" 
+
+sudo dnf groupinstall -y "Desktop Debugging and Performance Tools" 
+
+sudo dnf groupinstall -y "DNS Name Server" 
+
+sudo dnf groupinstall -y ".NET Development" 
+
+sudo dnf groupinstall -y "Emacs" 
+
+sudo dnf groupinstall -y "FTP Server"
+
+sudo dnf groupinstall -y "GNOME Applications" 
+
+sudo dnf groupinstall -y "Graphics Creation Tools" 
+
+sudo dnf groupinstall -y "Guest Agents" 
+
+sudo dnf groupinstall -y "Internet Applications" 
+
+sudo dnf groupinstall -y "Java Development" 
+
+sudo dnf groupinstall -y "Java Platform" 
+
+sudo dnf groupinstall -y "Legacy X Window System Compatibility" 
+
+sudo dnf groupinstall -y "Office Suite and Productivity" 
+
+sudo dnf groupinstall -y "Image based rpm-ostree support" 
+
+sudo dnf groupinstall -y "Platform Development" 
+
+sudo dnf groupinstall -y "Hyper-v platform specific packages" 
+
+sudo dnf groupinstall -y "VMware platform specific packages" 
+
+sudo dnf groupinstall -y "Remote Desktop Clients" 
+
+sudo dnf groupinstall -y "RPM Development Tools"
+
+sudo dnf groupinstall -y "TeX formatting system" 
+
+sudo dnf groupinstall -y "Virtualization Client" 
+
+sudo dnf groupinstall -y "Virtualization Platform" 
+
+sudo dnf groupinstall -y "Basic Web Server" 
+
+sudo dnf groupinstall -y "Additional Development" 
+
+sudo dnf groupinstall -y "Anaconda tools" 
+
+sudo dnf groupinstall -y "Conflicts BaseOS" 
+
+sudo dnf groupinstall -y "Development Tools" 
+
+sudo dnf groupinstall -y "Dial-up Networking Support" 
+
+sudo dnf groupinstall -y "File and Storage Server" 
+
+sudo dnf groupinstall -y "Graphical Administration Tools" 
+
+sudo dnf groupinstall -y "Infiniband Support" 
+
+sudo dnf groupinstall -y "Large Systems Performance" 
+
+sudo dnf groupinstall -y "Legacy UNIX Compatibility" 
+
+sudo dnf groupinstall -y "Mail Server" 
+
+sudo dnf groupinstall -y "Mainframe Access" 
+
+sudo dnf groupinstall -y "Network File System Client" 
+
+sudo dnf groupinstall -y "Network Servers" 
+
+sudo dnf groupinstall -y "Networking Tools" 
+
+sudo dnf groupinstall -y "Performance Tools" 
+
+sudo dnf groupinstall -y "Python Web" 
+
+sudo dnf groupinstall -y "Remote Management for Linux" 
+
+sudo dnf groupinstall -y "Scientific Support" 
+
+sudo dnf groupinstall -y "Security Tools" 
+
+sudo dnf groupinstall -y "Smart Card Support" 
+
+sudo dnf groupinstall -y "Windows File Server" 
+
+sudo dnf groupinstall -y "System Tools" 
+
+
+
+sudo dnf clean all
+
+sudo dnf makecache
+
+df -h
+
+
+sudo yum install links
+
+
+
+
+dnf module list
+
+sudo dnf module enable <module_name>:<stream_name>
+
+dnf module list nodejs
+
+sudo dnf module enable nodejs:20
+
+sudo dnf install @nodejs
+
+dnf module list 
+
+
+systemctl get-default
+
+systemctl set-default graphical.target
+
+systemctl isolate graphical.target
+
+/usr/lib/systemd/system
+
+
+
+
+
+
+
+
+
+
+
+
+sudo dnf install -y https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-9.noarch.rpm
+sudo dnf install -y https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-9.noarch.rpm
+
+
+sudo dnf config-manager --set-enabled rpmfusion-nonfree-updates-debuginfo
+
+sudo dnf config-manager --set-enabled rpmfusion-nonfree-updates-source
+
+sudo dnf config-manager --set-enabled rpmfusion-nonfree-updates-testing
+
+sudo dnf config-manager --set-enabled rpmfusion-nonfree-updates-testing-debuginfo
+
+sudo dnf config-manager --set-enabled rpmfusion-nonfree-updates-testing-source
+
+sudo dnf repolist all
+
+
+sudo dnf config-manager --set-enabled rpmfusion-free-updates-debuginfo
+
+sudo dnf config-manager --set-enabled rpmfusion-free-updates-source
+
+sudo dnf config-manager --set-enabled rpmfusion-free-updates-testing
+
+sudo dnf config-manager --set-enabled rpmfusion-free-updates-testing-debuginfo
+
+sudo dnf config-manager --set-enabled rpmfusion-free-updates-testing-source
+
+sudo dnf repolist all
+
+sudo dnf install <package-name> --debuglevel=3
+
+
+
+
+
+sudo dnf list python3*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+cat > lib-7.md5 << "EOF"
+1155b410c778f805659baf4373db2b92  xtrans-1.5.2.tar.xz
+5b8fa54e0ef94136b56f887a5e6cf6c9  libX11-1.8.10.tar.xz
+# ... (rest of the MD5 sums)
+EOF
+
+
+mkdir lib &&
+cd lib &&
+grep -v '^#' ../lib-7.md5 | awk '{print $2}' | wget -i- -c \
+    -B https://www.x.org/pub/individual/lib/ &&
+md5sum -c ../lib-7.md5
+
+
+
+as_root() {
+  if [ $EUID = 0 ]; then $*
+  elif [ -x /usr/bin/sudo ]; then sudo $*
+  else su -c \"$*\"
+  fi
+}
+export -f as_root
+
+
+bash -e
+
+
+
+
+
+
+
+for package in $(grep -v '^#' ../lib-7.md5 | awk '{print $2}')
+do
+  packagedir=${package%.tar.?z*}
+  echo "Building $packagedir"
+
+  tar -xf $package
+  pushd $packagedir
+  docdir="--docdir=$XORG_PREFIX/share/doc/$packagedir"
+  
+  case $packagedir in
+    libXfont2-[0-9]* )
+      ./configure $XORG_CONFIG $docdir --disable-devel-docs
+    ;;
+    libXt-[0-9]* )
+      ./configure $XORG_CONFIG $docdir \
+                  --with-appdefaultdir=/etc/X11/app-defaults
+    ;;
+    libXpm-[0-9]* )
+      ./configure $XORG_CONFIG $docdir --disable-open-zfile
+    ;;
+  
+    libpciaccess* )
+      mkdir build
+      cd    build
+        meson setup --prefix=$XORG_PREFIX --buildtype=release ..
+        ninja
+        as_root ninja install
+      popd
+      continue
+    ;;
+    * )
+      ./configure $XORG_CONFIG $docdir
+    ;;
+  esac
+
+  make
+  as_root make install
+  popd
+  rm -rf $packagedir
+  as_root /sbin/ldconfig
+done
+exit
+
+
+
+
+
+ln -sv $XORG_PREFIX/lib/X11 /usr/lib/X11 &&
+ln -sv $XORG_PREFIX/include/X11 /usr/include/X11
+
+
+
+
+
+
+
+
+
+cat > lib-7.md5 << "EOF"
+1155b410c778f805659baf4373db2b92  xtrans-1.5.2.tar.xz
+5b8fa54e0ef94136b56f887a5e6cf6c9  libX11-1.8.10.tar.xz
+e59476db179e48c1fb4487c12d0105d1  libXext-1.3.6.tar.xz
+c5cc0942ed39c49b8fcd47a427bd4305  libFS-1.0.10.tar.xz
+b444a0e4c2163d1bbc7b046c3653eb8d  libICE-1.1.1.tar.xz
+ffa434ed96ccae45533b3d653300730e  libSM-1.2.4.tar.xz
+e613751d38e13aa0d0fd8e0149cec057  libXScrnSaver-1.2.4.tar.xz
+9acd189c68750b5028cf120e53c68009  libXt-1.3.1.tar.xz
+85edefb7deaad4590a03fccba517669f  libXmu-1.2.1.tar.xz
+05b5667aadd476d77e9b5ba1a1de213e  libXpm-3.5.17.tar.xz
+2a9793533224f92ddad256492265dd82  libXaw-1.0.16.tar.xz
+65b9ba1e9ff3d16c4fa72915d4bb585a  libXfixes-6.0.1.tar.xz
+af0a5f0abb5b55f8411cd738cf0e5259  libXcomposite-0.4.6.tar.xz
+ebf7fb3241ec03e8a3b2af72f03b4631  libXrender-0.9.11.tar.xz
+5ce55e952ec2d84d9817169d5fdb7865  libXcursor-1.2.3.tar.xz
+ca55d29fa0a8b5c4a89f609a7952ebf8  libXdamage-1.1.6.tar.xz
+8816cc44d06ebe42e85950b368185826  libfontenc-1.1.8.tar.xz
+66e03e3405d923dfaf319d6f2b47e3da  libXfont2-2.0.7.tar.xz
+cea0a3304e47a841c90fbeeeb55329ee  libXft-2.3.8.tar.xz
+95a960c1692a83cc551979f7ffe28cf4  libXi-1.8.2.tar.xz
+228c877558c265d2f63c56a03f7d3f21  libXinerama-1.1.5.tar.xz
+24e0b72abe16efce9bf10579beaffc27  libXrandr-1.5.4.tar.xz
+66c9e9e01b0b53052bb1d02ebf8d7040  libXres-1.2.2.tar.xz
+b62dc44d8e63a67bb10230d54c44dcb7  libXtst-1.2.5.tar.xz
+70bfdd14ca1a563c218794413f0c1f42  libXv-1.0.12.tar.xz
+a90a5f01102dc445c7decbbd9ef77608  libXvMC-1.0.14.tar.xz
+74d1acf93b83abeb0954824da0ec400b  libXxf86dga-1.1.6.tar.xz
+5b913dac587f2de17a02e17f9a44a75f  libXxf86vm-1.1.5.tar.xz
+57c7efbeceedefde006123a77a7bc825  libpciaccess-0.18.1.tar.xz
+229708c15c9937b6e5131d0413474139  libxkbfile-1.1.3.tar.xz
+faa74f7483074ce7d4349e6bdc237497  libxshmfence-1.3.2.tar.xz
+bdd3ec17c6181fd7b26f6775886c730d  libXpresent-1.0.1.tar.xz
+EOF
+
+
+
+
+
+
+
+
+
+mkdir lib &&
+cd lib &&
+grep -v '^#' ../lib-7.md5 | awk '{print $2}' | wget -i- -c \
+    -B https://www.x.org/pub/individual/lib/ &&
+md5sum -c ../lib-7.md5
+
+
+bash -e
+
+
+
+
+
+
+for package in $(grep -v '^#' ../lib-7.md5 | awk '{print $2}')
+do
+  packagedir=${package%.tar.?z*}
+  echo "Building $packagedir"
+
+  tar -xf $package
+  pushd $packagedir
+  docdir="--docdir=$XORG_PREFIX/share/doc/$packagedir"
+  
+  case $packagedir in
+    libXfont2-[0-9]* )
+      ./configure $XORG_CONFIG $docdir --disable-devel-docs
+    ;;
+
+    libXt-[0-9]* )
+      ./configure $XORG_CONFIG $docdir \
+                  --with-appdefaultdir=/etc/X11/app-defaults
+    ;;
+
+    libXpm-[0-9]* )
+      ./configure $XORG_CONFIG $docdir --disable-open-zfile
+    ;;
+  
+    libpciaccess* )
+      mkdir build
+      cd    build
+        meson setup --prefix=$XORG_PREFIX --buildtype=release ..
+        ninja
+        #ninja test
+        as_root ninja install
+      popd     # $packagedir
+      continue # for loop
+    ;;
+
+    * )
+      ./configure $XORG_CONFIG $docdir
+    ;;
+  esac
+
+  make
+  #make check 2>&1 | tee ../$packagedir-make_check.log
+  as_root make install
+  popd
+  rm -rf $packagedir
+  as_root /sbin/ldconfig
+done
+
+
+
+
+
+
+
+
+
+
+as_root()
+{
+  if   [ $EUID = 0 ];        then $*
+  elif [ -x /usr/bin/sudo ]; then sudo $*
+  else                            su -c \\"$*\\"
+  fi
+}
+
+export -f as_root
+
+
+
+
+
+
+
+ln -sv $XORG_PREFIX/lib/X11 /usr/lib/X11 &&
+ln -sv $XORG_PREFIX/include/X11 /usr/include/X11
+
+
+
+
+
+
+
+
+https://yum.oracle.com/getting-started.html#installing-software-from-oracle-linux-yum-server
+
+sudo nano /etc/yum.repos.d/xpra-lts.repo
+
+
+[xpra-lts]
+name=Xpra LTS $releasever - $basearch
+enabled=1
+metadata_expire=1d
+gpgcheck=1
+gpgkey=https://xpra.org/gpg.asc
+baseurl=https://xpra.org/lts/oraclelinux/9/$basearch/
+
+
+sudo dnf config-manager --enable ol9_codeready_builder
+
+sudo dnf repolist --all
+
+
+
+
+
+
+grep -i '\[ol9_appstream\]' /etc/yum.repos.d/oracle-linux-ol9.repo
+
+nano /etc/yum.repos.d/oracle-linux-ol9.repo
+
+
+wget https://yum.oracle.com/RPM-GPG-KEY-oracle-ol9 -O /etc/pki/rpm-gpg/RPM-GPG-KEY-oracle
+
+
+gpg --quiet --keyid-format 0xlong --with-fingerprint /etc/pki/rpm-gpg/RPM-GPG-KEY-oracle
+
+
+nano /etc/yum.repos.d/ol9-temp.repo
+
+[ol9_baseos_latest]
+name=Oracle Linux 9 BaseOS Latest  ($basearch)
+baseurl=https://yum.oracle.com/repo/OracleLinux/OL9/baseos/latest/$basearch/
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-oracle
+gpgcheck=1
+enabled=1
+
+
+dnf install oraclelinux-release-el9
+
+dnf update --setopt=ol9_appstream.module_hotfixes=true
+
+
+
+
+sudo sh -c 'echo "[ol9_baseos_latest]
+name=Oracle Linux 9 BaseOS Latest  (\$basearch)
+baseurl=https://yum.oracle.com/repo/OracleLinux/OL9/baseos/latest/\$basearch/
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-oracle
+gpgcheck=1
+enabled=1" > /etc/yum.repos.d/ol9-temp.repo'
+
+
+
+mv /etc/yum.repos.d/ol9-temp.repo /etc/yum.repos.d/ol9-temp.repo.disabled
+
+
+
+sudo nano /etc/yum.repos.d/ol9-temp.repo
+
+
+[ol9_temp_repo]
+name=Oracle Linux 9 BaseOS Temp Repo ($basearch)
+baseurl=https://yum.oracle.com/repo/OracleLinux/OL9/baseos/latest/$basearch/
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-oracle
+gpgcheck=1
+enabled=1
+
+
+sudo dnf clean all
+
+
+
+
+
+
+
+sudo dnf install gcc-c++ make pkg-config
+sudo dnf install cairo cairo-devel
+sudo dnf install -y gcc python3-devel
+sudo dnf install python3-venv
+
+python3 -m venv myenv
+source myenv/bin/activate
+
+
+
+
+
+
+
+curl https://pyenv.run | bash
+
+pyenv install --list
+
+pyenv install 3.10.12
+
+pyenv local 3.10.12
+
+pyenv global 3.10.12
+
+echo 'export PYENV_ROOT="$HOME/.pyenv"' | sudo tee /etc/profile.d/pyenv.sh
+echo 'export PATH="$PYENV_ROOT/bin:$PATH"' | sudo tee -a /etc/profile.d/pyenv.sh
+echo 'eval "$(pyenv init --path)"' | sudo tee -a /etc/profile.d/pyenv.sh
+echo 'eval "$(pyenv init -)"' | sudo tee -a /etc/profile.d/pyenv.sh
+
+sudo chmod +x /etc/profile.d/pyenv.sh
+
+source /etc/profile.d/pyenv.sh
+
+which pyenv
+pyenv --version
+
+sudo nano /etc/profile.d/pyenv.sh
+
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path)"
+eval "$(pyenv init -)"
+
+sudo chmod +x /etc/profile.d/pyenv.sh
+
+source /etc/profile.d/pyenv.sh
+
+which pyenv
+pyenv --version
+
+echo $PATH
+
+
+
+
+
+
+
+
+
+
+
+
+
