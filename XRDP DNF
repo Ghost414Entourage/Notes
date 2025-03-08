@@ -1,0 +1,160 @@
+sudo dnf update -y
+
+sudo dnf install -y epel-release
+
+sudo dnf install -y epel-release sudo dnf groupinstall -y "Xfce"
+
+sudo dnf groupinstall -y "Server with GUI"
+
+sudo systemctl enable --now xrdp
+
+sudo firewall-cmd --permanent --add-port=3389/tcp sudo firewall-cmd --reload
+
+sudo nano /etc/xrdp/startwm.sh
+
+
+startxfce4
+
+
+gnome-session
+
+
+sudo systemctl restart xrdp
+sudo systemctl enable xrdp 
+sudo systemctl start xrdp 
+sudo systemctl status xrdp
+
+
+sudo firewall-cmd --permanent --add-port=3389/tcp
+sudo firewall-cmd --reload
+
+
+
+
+
+
+
+
+
+
+sudo dnf install -y tigervnc-server
+
+
+vncpasswd
+
+vncserver
+
+vncserver -kill :1
+vncserver :1
+
+nano /root/.vnc/xstartup
+
+
+sudo firewall-cmd --permanent --add-port=5901/tcp
+sudo firewall-cmd --reload
+
+
+sudo firewall-cmd --permanent --add-port=5900/tcp
+sudo firewall-cmd --reload
+
+
+sudo ufw allow 5901/tcp
+sudo ufw reload
+
+
+vncserver :1
+
+ps aux | grep Xtightvnc
+
+vnc://64.181.213.244:5901
+
+
+sudo systemctl status vncserver@root:1
+
+
+sudo systemctl enable vncserver@root:1
+sudo systemctl start vncserver@root:1
+
+
+
+sudo systemctl restart dbus
+
+
+
+sudo dnf install -y git python3
+
+git clone https://github.com/novnc/noVNC.git
+
+
+cd noVNC
+
+
+sudo dnf install -y websockify
+
+
+./utils/launch.sh --vnc localhost:5901
+
+
+http://<your-server-ip>:6080/vnc.html
+
+
+
+
+
+dnf groupinstall workstation
+
+startx
+
+systemctl set-default graphical.target
+
+dnf install tigervnc-server
+
+dnf install tigervnc
+
+
+systemctl daemon-reload
+
+
+cd /etc/systemd/system
+
+nano vncserver@.service
+
+
+[Unit]
+Description=Remote desktop service (VNC)
+After=syslog.target network.target
+[Service]
+Type=forking
+WorkingDirectory=/home/<USER>
+User=<USER>
+Group=<USER>
+ExecStartPre=/bin/sh -c '/usr/bin/vncserver -kill %i > /dev/null 2>&1 || :'
+ExecStart=/usr/bin/vncserver -autokill %i
+ExecStop=/usr/bin/vncserver -kill %i
+Restart=on-success
+RestartSec=15
+[Install]
+WantedBy=multi-user.target
+
+
+
+firewall-cmd --permanent --zone=public --add-port=5901/tcp
+firewall-cmd --reload
+
+systemctl daemon-reload
+systemctl start vncserver@:1.service
+
+systemctl enable vncserver@:1.service
+
+systemctl status vncserver@:1.service
+
+
+https://docs.oracle.com/en/learn/ol-install-vnc/index.html#open-a-vnc-client-and-test-your-deployment
+
+
+vnc://64.181.222.239:5901
+
+
+
+
+
