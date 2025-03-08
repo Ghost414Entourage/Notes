@@ -1,0 +1,399 @@
+nano fix_dnf_update_errors.sh
+
+#!/bin/bash
+
+# Log file for troubleshooting
+LOG_FILE="/var/log/dnf_update_debug.log"
+
+# Function to log output
+log_output() {
+    echo "$(date) - $1" | tee -a "$LOG_FILE"
+}
+
+# Function to run DNF commands with error handling and logging
+run_dnf_command() {
+    local command="$1"
+    log_output "Running command: $command"
+    eval "$command" >> "$LOG_FILE" 2>&1
+    if [ $? -ne 0 ]; then
+        log_output "Error: Command failed: $command"
+    else
+        log_output "Success: Command completed: $command"
+    fi
+}
+
+# Step 1: Clean DNF cache (removes old/unused packages and metadata)
+log_output "Cleaning DNF cache..."
+run_dnf_command "sudo dnf clean all"
+
+# Step 2: Remove any broken dependencies
+log_output "Removing broken dependencies..."
+run_dnf_command "sudo dnf repoquery --unsatisfied | xargs sudo dnf remove -y"
+
+# Step 3: Check and fix the repository metadata
+log_output "Checking and fixing repository metadata..."
+run_dnf_command "sudo dnf makecache"
+
+# Step 4: Update all packages (if any are outdated)
+log_output "Attempting to update all packages..."
+run_dnf_command "sudo dnf update -y"
+
+# Step 5: Fix any dependency issues
+log_output "Attempting to fix any dependency issues..."
+run_dnf_command "sudo dnf check"
+
+# Step 6: Try to resolve the transaction
+log_output "Resolving DNF transaction..."
+run_dnf_command "sudo dnf distro-sync -y"
+
+# Step 7: Force reinstall packages (useful for corrupt packages)
+log_output "Attempting to force reinstall packages..."
+run_dnf_command "sudo dnf reinstall $(sudo dnf list installed | awk '{print $1}' | tail -n +2) -y"
+
+# Step 8: Perform a complete upgrade to fix anything else
+log_output "Attempting a complete upgrade..."
+run_dnf_command "sudo dnf upgrade -y"
+
+# Step 9: Provide a debug output of the current status
+log_output "Checking system status..."
+run_dnf_command "sudo dnf history list"
+
+# Step 10: Clean up the DNF cache once more to ensure it's not corrupted
+log_output "Cleaning DNF cache again after update..."
+run_dnf_command "sudo dnf clean all"
+
+# Final message
+log_output "DNF Update and Repair Script completed. Please check $LOG_FILE for detailed logs."
+
+
+
+
+chmod +x fix_dnf_update_errors.sh
+
+sudo ./fix_dnf_update_errors.sh
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+sudo dnf config-manager --set-enabled ol8_MySQL80 ol8_MySQL80_connectors_community ol8_MySQL80_tools_community ol8_UEKR6 ol8_UEKR6_RDMA ol8_UEKR7_RDMA ol8_codeready_builder ol8_developer ol8_developer_EPEL ol8_developer_EPEL_modular ol8_developer_UEKR6 ol8_developer_UEKR7 ol8_distro_builder ol8_kvm_appstream ol8_u0_baseos_base ol8_u10_baseos_base ol8_u1_baseos_base ol8_u2_baseos_base ol8_u3_baseos_base ol8_u4_baseos_base ol8_u4_security_validation ol8_u5_baseos_base ol8_u6_baseos_base ol8_u7_baseos_base ol8_u8_baseos_base ol8_u9_baseos_base ol8_x86_64_userspace_ksplice ol8_MODRHCK
+
+
+for repo in $(dnf repolist all | awk '$3 == "disabled" {print $1}'); do
+  sudo dnf config-manager --set-enabled "$repo"
+done
+
+
+dnf group list --hidden
+
+dnf group list --hidden | awk -F" - " '/   / {print $1}' | xargs -I{} sudo dnf group install "{}" -y
+
+
+dnf group list --hidden | awk -F" - " '/   / {print $1}' | tee -a installed_groups.log | xargs -I{} sudo dnf group install "{}" -y -v
+
+dnf group list --hidden | \
+awk -F" - " '/   / {print $1}' | \
+tee -a installed_groups.log | \
+xargs -I{} sh -c 'echo "Installing group: {}" && sudo dnf group install "{}" -y -v || echo "Failed to install group: {}"' 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ssh -i /path/to/your-private-key.pem oracle-username@instance-ip
+
+
+eval "$(ssh-agent -s)"
+
+eval "$(ssh-agent -k)"
+
+
+
+chmod 600 /Users/casper/Downloads/ssh-key-2024-11-20-2.key
+
+ssh-add ~/.ssh/id_rsa
+
+ssh-add /Users/casper/Downloads/ssh-key-2024-11-20-2.key
+
+ssh-add -l
+
+
+ssh-add -d /Users/casper/Downloads/ssh-key-2024-11-20-2.key
+
+killall ssh-agent
+
+ssh-agent -k
+
+ps aux | grep ssh-agent
+
+echo $SSH_AUTH_SOCK
+
+unset SSH_AUTH_SOCK
+
+echo $SSH_AUTH_SOCK
+
+unset SSH_AUTH_SOCK
+unset SSH_AGENT_PID
+
+echo $SSH_AUTH_SOCK
+echo $SSH_AGENT_PID
+
+
+
+ps aux | grep '[s]sh-agent' | awk '{print $2}' | xargs kill
+
+ps aux | grep '[s]sh-agent' | awk '{print $2}' | xargs kill -9
+
+ps aux | grep '[s]sh-agent' | awk '{print $2}' | sudo xargs kill
+
+ps aux | grep '[s]sh-agent' | awk '{print $2}' | sudo xargs kill -9
+
+unset SSH_AUTH_SOCK SSH_AGENT_PID
+
+rm $SSH_AUTH_SOCK
+
+
+unset SSH_AUTH_SOCK
+unset SSH_AGENT_PID
+
+echo $SSH_AUTH_SOCK
+echo $SSH_AGENT_PID
+
+
+
+
+sudo rm -rf /private/tmp/*
+sudo find /private/tmp -type f -atime +7 -exec rm -f {} \;
+ls /private/tmp
+
+sudo rm -rf /private/var/log/*
+sudo rm -rf /private/var/tmp/*
+sudo rm -rf /private/tmp/*
+
+
+
+
+
+nano ~/.ssh/config
+
+Host oracle-instance
+  HostName instance-ip
+  User oracle-username
+  IdentityFile /path/to/your-private-key.pem
+
+
+Host myserver
+  HostName your.server.com
+  User your-username
+  IdentityFile /Users/casper/Downloads/ssh-key-2024-11-20-2.key
+
+
+
+sudo su
+sudo -i
+su -
+
+
+useradd -m newusername
+
+useradd -D
+
+sudo useradd newuser
+
+sudo passwd newuser
+
+sudo usermod -aG wheel newuser
+
+sudo dnf install sudo
+
+sudo visudo
+
+%wheel  ALL=(ALL)       ALL
+
+su - newuser
+sudo whoami
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ssh-keygen -t rsa -N "" -b 2048 -C "your_email@example.com"
+
+eval $(ssh-agent) 
+
+eval "$(ssh-agent -s)"
+
+
+ssh-add ~/.ssh/id_rsa
+
+ssh-agent -k
+
+echo $SSH_AUTH_SOCK
+
+echo $SSH_AGENT_PID
+
+ps aux | grep ssh
+ps aux | grep ssh-agent
+
+unset SSH_AUTH_SOCK
+unset SSH_AGENT_PID
+
+ps aux | grep ssh
+
+kill $SSH_AGENT_PID
+
+
+
+
+Running ssh-agent
+The ssh-agent command is usually run from initialization scripts at login, such as from /etc/X11/Xsession.d/90x11-common_ssh-agent on Linux Mint LMDE. Alternatively, any user can configure it to be run from, e.g., the user's ~/.xsession file or ~/.profile.
+
+The agent outputs environment variable settings that this puts in place. The SSH_AUTH_SOCK environment variable is set to point to a unix-domain socket used for communicating with the agent, and the SSH_AGENT_PID environment variable is set to the process ID of the agent. To get the environment variables set in the user's shell environment, the agent is usually run with something like the following:
+
+eval `ssh-agent`
+
+The ssh-agent command accepts the following options:
+
+-a bind_address
+
+Forces to bind the Unix domain socket to the given file path, instead of the default socket.
+
+-c
+
+Forces generation of C-shell commands on stdout. By default the shell is automatically detected.
+
+-d
+
+Enables debug mode.
+
+-E fingerprint_hash Specifies which algorithm to use for generating SSH key fingerprints. Valid values include md5 and sha256.
+
+-k
+
+Kills the currently running agent.
+
+-s
+
+Forces generation of Bourne shell (/bin/sh) commands on stdout. By default the shell is automatically detected.
+
+-t life
+
+Specifies a maximum number of seconds that identities are kept in the agent. The value is in seconds, but can be suffixed by m for minutes, h for hours, d for days, and w for weeks. Without this option, the agent keeps the keys in its memory as long as it runs. This can be overridden when running the ssh-add command.
