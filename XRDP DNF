@@ -1,0 +1,592 @@
+sudo yum install -y gcc make g++ libjpeg-turbo-devel libpng-devel libtool libuuid-devel freerdp-devel libssh2-devel libvncserver-devel libtelnet-devel openssl-devel pulseaudio-libs-devel libvorbis-devel libwebp-devel java-1.8.0-openjdk-devel maven
+
+dnf install guacd libguac-client-rdp libguac-client-ssh libguac-client-vnc libguac-client-telnet
+
+dnf install tomcat tomcat-webapps
+
+dnf install guacd.x86_64 libguac.x86_64 libguac-devel.x86_64
+
+sudo dnf install -y wget cairo-devel libjpeg-devel libpng-devel uuid-devel freerdp-devel pango-devel libssh2-devel libtelnet-devel libvncserver-devel pulseaudio-libs-devel openssl-devel libvorbis-devel libwebsockets-devel tomcat-native
+
+dnf install terminus-fonts terminus-fonts-console dejavu-sans-mono-fonts
+
+
+
+
+sudo yum install cairo-devel
+
+
+wget https://downloads.apache.org/guacamole/1.5.5/source/guacamole-server-1.5.5.tar.gz
+
+wget https://dlcdn.apache.org/guacamole/1.5.5/source/guacamole-server-1.5.5.tar.gz
+
+git clonehttps://github.com/apache/guacamole-server.git
+
+cd guacamole-server
+autoreconf -fi
+./configure --with-init-dir=/etc/init.d
+make
+make install
+ldconfig
+
+
+
+tar xzf guacamole-server-1.5.5.tar.gz
+
+cd guacamole-server-1.5.5
+
+./configure --with-init-dir=/etc/init.d
+./configure --with-systemd-dir=/etc/systemd/system/ --disable-dependency-tracking
+
+make
+
+sudo make install
+
+sudo ldconfig
+
+sudo yum install tomcat
+
+wget https://dlcdn.apache.org/guacamole/1.5.5/binary/guacamole-1.5.5.war -P /tmp
+sudo mv /tmp/guacamole-1.5.5.war /var/lib/tomcat/webapps/guacamole.war
+
+wget https://downloads.apache.org/guacamole/1.5.5/binary/guacamole-1.5.5.war -P /tmp
+sudo mv /tmp/guacamole-1.5.5.war /var/lib/tomcat/webapps/guacamole.war
+
+sudo useradd -m -U -d /opt/tomcat -s /bin/false tomcat
+
+
+sudo yum install java-11-openjdk-devel
+sudo yum install -y java-17-openjdk-devel
+
+java -version
+
+curl -sL https://rpm.nodesource.com/setup_18.x | sudo bash -
+
+sudo yum groupinstall "Development Tools"
+sudo yum install python3
+
+
+
+git clone https://github.com/apache/guacamole-client.git
+
+cd guacamole-client
+
+mvn package
+
+mvn clean install -X
+
+npm run build
+
+sudo /etc/init.d/guacd restart
+sudo /etc/init.d/guacd start
+sudo /etc/init.d/guacd status
+
+sudo mkdir -p /etc/guacamole/{extensions,lib}
+
+sudo ln -s /etc/guacamole/guacamole.war /opt/tomcat/tomcatapp/webapps
+
+
+
+sudo yum install java-11-openjdk-devel
+sudo vim /etc/profile.d/java11.sh
+
+export JAVA_HOME=$(dirname $(dirname $(readlink -f $(which javac))))
+export PATH=$PATH:$JAVA_HOME/bin
+export CLASSPATH=.:$JAVA_HOME/jre/lib:$JAVA_HOME/lib:$JAVA_HOME/lib/tools.jar
+
+source /etc/profile.d/java11.sh
+
+sudo useradd -m -U -d /opt/tomcat -s /bin/false tomcat
+
+sudo chown -R tomcat: /opt/tomcat
+
+
+ sudo vim /etc/systemd/system/tomcat.service
+
+
+
+
+
+Description=Tomcat 9 servlet container
+After=network.target
+
+[Service]
+Type=forking
+
+User=tomcat
+Group=tomcat
+
+Environment="JAVA_HOME=/usr/lib/jvm/jre-openjdk/"
+Environment="JAVA_OPTS=-Djava.security.egd=file:///dev/urandom -Djava.awt.headless=true"
+
+Environment="CATALINA_BASE=/opt/tomcat/tomcatapp"
+Environment="CATALINA_HOME=/opt/tomcat/tomcatapp"
+Environment="CATALINA_PID=/opt/tomcat/tomcatapp/temp/tomcat.pid"
+Environment="CATALINA_OPTS=-Xms512M -Xmx1024M -server -XX:+UseParallelGC"
+
+ExecStart=/opt/tomcat/tomcatapp/bin/startup.sh
+ExecStop=/opt/tomcat/tomcatapp/bin/shutdown.sh
+
+[Install]
+WantedBy=multi-user.target
+
+
+sudo systemctl daemon-reload
+sudo systemctl enable --now tomcat
+
+
+sudo mkdir -p /etc/guacamole/{extensions,lib}
+
+
+sudo wget https://downloads.apache.org/guacamole/1.5.5/binary/guacamole-1.5.5.war
+
+
+
+sudo nano /etc/guacamole/user-mapping.xml
+
+
+
+
+<user-mapping>
+
+    <!-- Per-user authentication and config information -->
+    <authorize username="USERNAME" password="PASSWORD">
+        
+        <!-- VNC authorized connection -->
+        <connection name="vnc_connection">
+            <protocol>vnc</protocol>
+            <param name="hostname">149.130.209.105</param>
+            <param name="port">5900</param>
+            <param name="password">VNCPASS</param>
+        </connection>
+
+        <!-- RDP authorized connection -->
+        <connection name="rdp_connection">
+            <protocol>rdp</protocol>
+            <param name="hostname">149.130.209.105</param>
+            <param name="port">3389</param>
+            <param name="password">RDPASS</param>
+        </connection>
+
+        <!-- x11vnc authorized connection -->
+        <connection name="x11vnc_connection">
+            <protocol>x11vnc</protocol>
+            <param name="hostname">149.130.209.105</param>
+            <param name="port">5902</param>
+            <param name="password">X11VNPASS</param>
+        </connection>
+
+    </authorize>
+
+</user-mapping>
+
+
+
+sudo systemctl restart guacd
+
+
+sudo yum install xrdp -y
+
+sudo systemctl restart xrdp
+sudo systemctl start xrdp
+sudo systemctl enable xrdp
+sudo systemctl status xrdp
+
+
+sudo yum groupinstall "Server with GUI" -y
+sudo yum install epel-release -y
+sudo yum install xfce4-session -y
+echo "xfce4-session" > ~/.Xclients
+chmod +x ~/.Xclients
+
+
+
+sudo yum groupinstall "Server with GUI" -y
+sudo systemctl set-default graphical.target
+
+sudo firewall-cmd --add-port=3389/tcp --permanent
+sudo firewall-cmd --reload
+sudo setsebool -P xrdp_can_connect_all_ports 1
+
+sudo systemctl status xrdp
+
+
+wget https://downloads.apache.org/guacamole/1.5.5/binary/guacamole-1.5.5.war
+
+sudo mv guacamole-1.5.5.war /var/lib/tomcat/webapps/guacamole.war
+
+sudo yum install tomcat mariadb mariadb-server -y
+
+sudo mkdir /etc/guacamole
+sudo mkdir /usr/share/tomcat/.guacamole
+
+sudo nano /etc/guacamole/guacamole.properties
+
+
+guacd-hostname: localhost
+guacd-port: 4822
+auth-provider: jdbc
+jdbc-driver: mysql
+jdbc-username: guacamole_user
+jdbc-password: your_password
+jdbc-url: jdbc:mysql://localhost:3306/guacamole_db
+
+
+
+wget https://downloads.apache.org/guacamole/1.5.5/binary/guacamole-auth-jdbc-1.5.5.tar.gz
+
+
+tar -xzf guacamole-auth-jdbc-1.5.5.tar.gz
+sudo mv guacamole-auth-jdbc-1.5.5/mysql/guacamole-auth-jdbc-mysql-1.5.5.jar /etc/guacamole/extensions/
+
+
+sudo ln -s /etc/guacamole /usr/share/tomcat/.guacamole
+
+sudo systemctl start tomcat
+sudo systemctl enable tomcat
+sudo systemctl start guacd
+sudo systemctl enable guacd
+
+
+
+
+sudo systemctl start tomcat
+sudo systemctl start guacd
+
+sudo systemctl status tomcat
+sudo systemctl status guacd
+sudo systemctl enable tomcat
+sudo systemctl enable guacd
+
+http://<your-server-ip>:8080/guacamole
+
+
+
+sudo mkdir -p /usr/share/tomcat/.guacamole
+sudo nano /usr/share/tomcat/.guacamole/guacamole.properties
+
+
+# Example for MySQL authentication
+auth-provider: net.sourceforge.guacamole.net.auth.mysql.MySQLAuthenticationProvider
+mysql-hostname: localhost
+mysql-port: 3306
+mysql-database: guacamole_db
+mysql-username: guacamole_user
+mysql-password: your_password
+
+
+sudo chown -R tomcat:tomcat /usr/share/tomcat/.guacamole
+
+sudo systemctl status mariadb
+
+sudo systemctl start mariadb
+
+sudo systemctl status mariadb
+
+
+sudo mysql -u root -p
+
+CREATE DATABASE guacamole_db;
+
+CREATE USER 'guacamole_user'@'localhost' IDENTIFIED BY 'yourpassword';
+
+GRANT ALL PRIVILEGES ON guacamole_db.* TO 'guacamole_user'@'localhost';
+
+FLUSH PRIVILEGES;
+
+
+sudo nano /etc/guacamole/guacamole.properties
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+https://www.howtoforge.com/how-to-install-and-use-apache-guacamole-remote-desktop-on-rocky-linux-8/#google_vignette
+
+https://kifarunix.com/how-to-install-and-configure-guacamole-on-fedora-29/ 
+
+https://docs.linuxfabrik.ch/software/apache-guacamole.html
+
+https://infotechys.com/install-apache-guacamole-on-fedora-37/
+
+https://github.com/itiligent/Easy-Guacamole-Installer
+
+
+
+
+
+sudo dnf install -y epel-release
+
+sudo dnf install -y wget cairo-devel libjpeg-devel libpng-devel uuid-devel freerdp-devel pango-devel libssh2-devel libtelnet-devel libvncserver-devel pulseaudio-libs-devel openssl-devel libvorbis-devel libwebsockets-devel tomcat-native
+
+wget https://downloads.apache.org/guacamole/1.5.5/source/guacamole-server-1.5.5.tar.gz
+
+
+tar -zxvf guacamole-server-1.5.5.tar.gz
+
+cd guacamole-server-1.5.5
+
+
+./configure --with-systemd-dir=/etc/systemd/system/ --disable-dependency-tracking
+
+make
+
+sudo make install
+
+sudo ldconfig
+
+sudo wget https://downloads.apache.org/guacamole/1.5.5/binary/guacamole-1.5.5.war
+
+sudo dnf install tomcat
+
+sudo systemctl enable --now tomcat
+
+sudo systemctl is-active tomcat
+
+sudo cp guacamole-1.5.5.war /var/lib/tomcat/webapps/guacamole.war
+
+sudo systemctl restart tomcat
+
+sudo mkdir -p /etc/guacamole/{extensions,lib}
+
+echo GUACAMOLE_HOME=/etc/guacamole >> /etc/default/tomcat
+
+sudo vim guacamole.properties.example
+
+
+
+
+
+# Guacamole properties
+
+# Hostname and port of guacamole proxy
+guacd-hostname: localhost
+guacd-port: 4822
+
+# Auth provider class (authenticates user credentials)
+# Example LDAP authentication
+#auth-provider: net.sourceforge.guacamole.net.basic.BasicFileAuthenticationProvider
+# Example MySQL authentication
+#auth-provider: net.sourceforge.guacamole.net.mysql.MySQLAuthenticationProvider
+# Example JDBC authentication
+#auth-provider: net.sourceforge.guacamole.net.jdbc.JDBCAuthenticationProvider
+
+# LDAP properties
+#ldap-hostname: ldap.example.com
+#ldap-port: 389
+#ldap-user-base-dn: dc=example,dc=com
+#ldap-username-attribute: uid
+#ldap-encryption-method: none
+#ldap-search-bind-dn: cn=admin,dc=example,dc=com
+#ldap-search-bind-password: password
+
+# MySQL properties
+#mysql-hostname: localhost
+#mysql-port: 3306
+#mysql-database: guacamole_db
+#mysql-username: guacamole_user
+#mysql-password: password
+
+# JDBC properties
+#jdbc-driver: com.mysql.jdbc.Driver
+#jdbc-url: jdbc:mysql://localhost:3306/guacamole_db
+#jdbc-username: guacamole_user
+#jdbc-password: password
+
+# Guacamole authentication
+# Example basic file authentication
+#basic-user-mapping: /etc/guacamole/user-mapping.xml
+
+# Guacamole properties
+# The value of "guacd-hostname" is ignored if using "guacd-socket".
+#guacd-hostname: localhost
+#guacd-port: 4822
+#guacd-socket: /var/run/guacd/guacd.sock
+
+# Enable SSL
+#guacamole-ssl: true
+#guacamole-ssl-certificate: /etc/pki/tls/certs/localhost.crt
+#guacamole-ssl-key: /etc/pki/tls/private/localhost.key
+#guacamole-ssl-key-password: password
+
+# WebSocket configuration
+#web-socket-support: true
+#web-socket-maximum-connections: 100
+
+# Token parameter name
+#token-parameter-name: token
+
+# User permissions
+#admin-group: admin
+#user-group: users
+
+# Disable user input history
+#history-size: 0
+
+
+
+
+
+
+sudo cp guacamole.properties.example /etc/guacamole/guacamole.properties
+
+
+
+sudo vim /etc/guacamole/guacamole.properties
+
+
+sudo touch /etc/guacamole/guacd.conf
+
+
+sudo dnf install mariadb-server -y
+
+sudo systemctl enable --now mariadb
+
+sudo mysql_secure_installation
+
+mysql -u root -p
+
+CREATE DATABASE guacamole_db;
+
+exit
+
+
+sudo wget https://dlcdn.apache.org/guacamole/1.5.5/binary/guacamole-auth-jdbc-1.5.5.tar.gz
+
+
+sudo tar -xzvf guacamole-auth-jdbc-1.5.5.tar.gz
+
+
+
+
+
+sudo cd guacamole-auth-jdbc-1.5.5/mysql; sudo cat schema/*.sql | mysql -u root -p guacamole_db
+
+
+
+
+\c
+
+
+sudo mysql -u root -p
+
+CREATE USER 'guacamole_user'@'localhost' IDENTIFIED BY 'Medved414$';
+
+GRANT SELECT,INSERT,UPDATE,DELETE ON guacamole_db.* TO 'guacamole_user'@'localhost';
+
+FLUSH PRIVILEGES;
+
+exit
+
+find / -name 'guacamole-auth-jdbc-mysql-1.5.5.jar'
+
+
+sudo cp guacamole-auth-jdbc-mysql-1.5.5.jar /etc/guacamole/extensions/
+
+
+sudo cp /home/opc/guacamole-server-1.5.5/guacamole-auth-jdbc-1.5.5/mysql/guacamole-auth-jdbc-mysql-1.5.5.jar /etc/guacamole/extensions/
+
+
+sudo yum groupinstall "Development Tools" -y
+sudo yum install cairo cairo-devel libpng libpng-devel libjpeg libjpeg-devel freerdp freerdp-devel pango pango-devel guacamole-common -y
+
+sudo yum install gcc libtool libjpeg-devel libpng-devel freerdp-devel cairo-devel pango-devel -y
+
+sudo firewall-cmd --permanent --add-service=https
+sudo firewall-cmd --permanent --add-service=http
+
+sudo firewall-cmd --permanent --list-services
+
+sudo firewall-cmd --reload
+
+sudo dnf install epel-release -y
+
+
+dnf -y install libguac-client-kubernetes
+dnf -y install libguac-client-rdp
+dnf -y install libguac-client-ssh
+dnf -y install libguac-client-telnet
+dnf -y install libguac-client-vnc
+
+systemctl enable --now guacd.service
+
+
+
+pip3 install mysql-connector-python
+
+pip3 show mysql-connector-python
+
+sudo nano /etc/profile.d/mysql-connector.sh
+
+export PYTHONPATH=$PYTHONPATH:/usr/local/lib64/python3.9/site-packages
+
+source /etc/profile
+
+
+
+sudo firewall-cmd --zone=public --add-port=8080/tcp --permanent
+sudo firewall-cmd --zone=public --add-port=4822/tcp --permanent
+
+
+sudo firewall-cmd --zone=public --add-port=3389/tcp --permanent
+
+sudo firewall-cmd --reload
+
+sudo firewall-cmd --list-ports
+
+sudo ufw allow 8080/tcp
+sudo ufw allow 4822/tcp
+
+
+
+sudo systemctl enable --now tomcat9
+
+
+sudo nano /etc/guacamole/user-mapping.xml
+
+
+sudo systemctl enable --now guacd
+
+
+sudo nano /etc/guacamole/user-mapping.xml
+
+
+sudo dnf install x11vnc net-tools
+
+x11vnc -storepasswd 
+
+
+
+
+
+sudo yum install https://download1.rpmfusion.org/free/el/rpmfusion-free-release-9.noarch.rpm https://download1.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-9.noarch.rpm
+
+echo "exec startxfce4" > ~/.xinitrc
+
+
+sudo update-alternatives --config 'java'
+
+
+
+
