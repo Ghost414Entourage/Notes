@@ -1,0 +1,561 @@
+sudo setenforce 0
+
+getenforce
+
+sh <(curl -L https://nixos.org/nix/install) --daemon
+
+nix-shell -p nix-info --run "nix-info -m"
+
+
+sudo nano /etc/selinux/config
+
+SELINUX=disabled
+
+sudo reboot
+
+sestatus
+
+sudo nano /etc/selinux/config
+
+SELINUX=enforcing
+
+sudo reboot
+
+sestatus
+
+nix-channel --update
+
+sudo systemctl daemon-reload
+
+
+
+
+sudo useradd -m linux
+
+sudo passwd linux
+
+sudo usermod -aG linux
+
+sudo groupadd -f nixbld
+
+sudo usermod -aG nixbld linux
+
+groups linux
+
+
+
+
+systemctl restart nix-daemon.service
+
+systemctl restart nix-daemon.service
+
+systemctl enable nix-daemon.service 
+
+systemctl enable nix-daemon.socket
+
+systemctl start nix-daemon.service
+
+systemctl start nix-daemon.service
+
+systemctl status nix-daemon.service
+
+systemctl status nix-daemon.service
+
+
+sudo systemctl daemon-reload
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+curl -L https://nixos.org/nix/install | sh
+
+curl -L https://nixos.org/nix/install | sh -s -- --no-daemon
+
+curl -L https://nixos.org/nix/install | sh -s -- --daemon
+
+
+. /home/opc/.nix-profile/etc/profile.d/nix.sh
+
+
+source /home/opc/.nix-profile/etc/profile.d/nix.sh
+
+source $HOME/.nix-profile/etc/profile.d/nix.sh
+
+
+
+nix-shell -p nix-info --run "nix-info -m"
+
+sudo ln -sfn /nix/var/nix/profiles/default/lib/systemd/system/nix-daemon.service /etc/systemd/system/nix-daemon.service
+
+sudo systemctl daemon-reload
+
+
+nix-env --version
+
+sudo systemctl restart nix-daemon.service
+
+sudo systemctl start nix-daemon.service
+
+sudo systemctl enable nix-daemon.service
+
+sudo systemctl status nix-daemon.service
+
+
+nix-env --version
+nix-channel --list
+nix-env -qa '*'
+
+
+
+sh <(curl -L https://nixos.org/nix/install) --daemon
+
+
+sestatus
+
+
+sudo setenforce 0
+
+sh <(curl -L https://nixos.org/nix/install) --daemon
+
+sudo setenforce 1
+
+sudo nano /etc/selinux/config
+
+SELINUX=enforcing
+SELINUX=disabled
+
+sudo reboot
+
+sh <(curl -L https://nixos.org/nix/install) --daemon
+
+
+sudo systemctl enable nix-daemon.service
+sudo systemctl start nix-daemon.service
+sudo systemctl status nix-daemon.service
+
+. /etc/profile.d/nix.sh
+
+source /etc/profile.d/nix.sh
+
+
+
+sudo nano /etc/profile.d/nix1.sh
+
+
+#!/bin/sh
+if [ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ]; then
+    . "$HOME/.nix-profile/etc/profile.d/nix.sh"
+elif [ -e "/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh" ]; then
+    . "/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh"
+fi
+
+
+sudo chmod +x /etc/profile.d/nix.sh
+
+source /etc/profile
+
+nix --version
+nix-env --version
+
+
+df -h | grep /nix/store
+
+mount -t tmpfs -o mode=0755,nosuid,nodev none /nix/store
+
+
+User=guacuser
+
+sudo useradd guacuser
+
+sudo rm -rf /nix
+sudo curl -L https://nixos.org/nix/install | sh
+
+. /root/.nix-profile/etc/profile.d/nix.sh
+
+
+for user in $(cut -d: -f1 /etc/passwd); do
+    sudo usermod -aG nixbld "$user"
+done
+
+
+sudo systemctl daemon-reload
+
+sudo systemctl restart guacd.service
+
+sudo usermod -aG nixbld guacuser
+
+
+
+
+
+sudo useradd -m linux
+sudo passwd linux
+sudo usermod -aG wheel linux
+sudo groupadd -f nixbld
+sudo usermod -aG nixbld linux
+groups linux
+
+sudo systemctl status nix-daemon
+
+sudo systemctl stop nix-daemon
+
+
+
+
+
+
+
+sudo rm -f /nix/var/nix/daemon-socket/socket
+
+
+
+
+
+
+sudo ln -sfn /nix/var/nix/profiles/default/lib/systemd/system/nix-daemon.service /etc/systemd/system/nix-daemon.service
+
+sudo ln -sfn /nix/var/nix/profiles/default/lib/systemd/system/nix-daemon.socket /etc/systemd/system/nix-daemon.socket
+
+sudo systemctl daemon-reload
+
+
+
+sudo useradd -r -s /sbin/nologin -d /var/empty -g nixbld nixbld
+
+
+
+
+cd /etc/systemd/system
+
+
+sudo nano /etc/profile.d/nix_profile.sh
+
+
+
+# Load Nix profiles
+if [ -d ~/.nix-profile ]; then
+    if [ -f ~/.nix-profile/etc/profile.d/nix.sh ]; then
+        . ~/.nix-profile/etc/profile.d/nix.sh
+    fi
+fi
+
+
+
+sudo chmod +x /etc/profile.d/nix_profile.sh
+
+
+source ~/.bashrc 
+
+sudo chmod 777 /etc/systemd/system/oracle-cloud-agent.service
+
+sudo chmod 777 /etc/systemd/system/oracle-cloud-agent-updater.service
+
+
+nix-shell -p guacamole-client
+
+nix-shell -p guacamole-server
+
+
+nix-env -i guacamole-client
+
+nix-shell -p guacamole-server guacamole-client
+
+nix-env -i guacamole-server
+
+nix-env --query --installed | grep guacamole-server
+
+
+nix-shell -p guacamole-server guacamole-client
+
+nix-env --query --installed | grep guacamole-server
+nix-env --query --installed | grep guacamole-client
+
+
+
+
+
+
+sudo mkdir -p /etc/guacamole
+
+
+sudo nano /etc/guacamole/user-mapping.xml
+
+<user-mapping>
+    <authorization>
+        <user password="user1password">
+            <connection name="vnc-connection">
+                <protocol>vnc</protocol>
+                <param name="hostname">localhost</param>
+                <param name="port">5901</param>
+                <param name="password">vncpassword</param>
+            </connection>
+        </user>
+        <user password="user2password">
+            <connection name="rdp-connection">
+                <protocol>rdp</protocol>
+                <param name="hostname">rdp.example.com</param>
+                <param name="port">3389</param>
+                <param name="username">rdpuser</param>
+                <param name="password">rdppassword</param>
+            </connection>
+        </user>
+    </authorization>
+</user-mapping>
+
+
+sudo nano /etc/guacamole/guacamole.properties
+
+
+
+# Location of the user mapping file
+guacamole.properties.file = /etc/guacamole/user-mapping.xml
+
+# Enable required protocols
+guacamole.enabled-protocols = vnc,rdp
+
+
+
+guacd
+
+
+
+sudo ufw allow 8080/tcp
+
+sudo ufw allow 5900:5999/tcp
+
+sudo ufw allow 3389/tcp
+
+sudo firewall-cmd --permanent --add-port=8080/tcp
+sudo firewall-cmd --reload
+
+sudo firewall-cmd --permanent --add-port=5900-5999/tcp
+sudo firewall-cmd --reload
+
+sudo firewall-cmd --permanent --add-port=3389/tcp
+sudo firewall-cmd --reload
+
+sudo iptables -A INPUT -p tcp --dport 8080 -j ACCEPT
+sudo iptables-save > /etc/iptables/rules.v4
+
+sudo iptables -A INPUT -p tcp --dport 5900:5999 -j ACCEPT
+sudo iptables-save > /etc/iptables/rules.v4
+
+sudo iptables -A INPUT -p tcp --dport 3389 -j ACCEPT
+sudo iptables-save > /etc/iptables/rules.v4
+
+
+
+http://149.130.209.105:8080/guacamole/
+
+
+
+
+nano /etc/systemd/system/guacd.service
+
+
+# /etc/systemd/system/guacd.service
+[Unit]
+Description=Guacamole Proxy Daemon
+After=network.target
+
+[Service]
+Type=simple
+User=guacamole
+Group=guacamole
+ExecStart=/run/current-system/sw/bin/guacd -f -l /var/log/guacamole/guacd.log
+
+[Install]
+WantedBy=multi-user.target
+
+
+
+nano /etc/systemd/system/guacamole.service
+
+
+# /etc/systemd/system/guacamole.service
+[Unit]
+Description=Guacamole Tomcat Server
+After=network.target guacd.service
+
+[Service]
+Type=forking
+User=guacamole
+Group=guacamole
+Environment=GUACD_HOSTNAME=localhost
+Environment=GUACD_PORT=4822
+ExecStart=/run/current-system/sw/bin/catalina.sh run
+ExecStop=/run/current-system/sw/bin/catalina.sh stop
+
+[Install]
+WantedBy=multi-user.target
+
+
+
+nix-channel --update
+
+nix-env -u
+
+
+
+
+
+
+
+nix-shell -p tomcat9
+
+
+/nix/store/brk0nxmja9cdi2cy9l3cn9b331d152hg-apache-tomcat-9.0.97/bin/catalina.sh start
+
+
+
+export JAVA_HOME=/usr/bin
+export JAVA_HOME=/usr
+echo $JAVA_HOME
+
+
+export JAVA_HOME=/usr
+
+
+
+/nix/store/brk0nxmja9cdi2cy9l3cn9b331d152hg-apache-tomcat-9.0.97/bin/catalina.sh start
+
+
+echo $JAVA_HOME
+
+
+
+
+find / -name java -type f 2>/dev/null
+
+sudo dnf install java-17-openjdk-devel
+
+
+
+sudo mkdir -p /run/current-system/sw/bin
+
+sudo cp /root/.nix-profile/bin/guacd /run/current-system/sw/bin/guacd
+
+ls -l /run/current-system/sw/bin/guacd
+
+
+
+
+
+
+
+sudo nano /etc/systemd/system/guacd.service
+
+
+
+[Unit]
+Description=Guacamole Proxy Daemon
+After=network.target
+
+[Service]
+Type=simple
+User=guacamole
+Group=guacamole
+ExecStart=/run/current-system/sw/bin/guacd -f -l /var/log/guacamole/guacd.log
+
+[Install]
+WantedBy=multi-user.target
+
+
+systemctl daemon-reload
+
+sudo systemctl restart guacd
+
+sudo systemctl start guacd
+
+sudo systemctl enable guacd
+
+sudo systemctl status guacd
+
+
+echo "download-buffer-size = 1000000" | sudo tee -a /etc/nix/nix.conf
+
+
+
+
+mkdir -p ~/.config/nixpkgs
+echo "download-buffer-size = 1000000" >> ~/.config/nixpkgs/nix.conf
+
+
+
+
+NIX_DEBUG=1 nix-shell -p xorg.xorgserver
+
+
+echo $NIX_DEBUG
+
+
+nix-shell -p xorg.xorgserver --run "which Xorg"
+
+
+echo $NIX_PATH
+
+export NIX_PATH=nixpkgs=channel:nixpkgs-unstable
+
+
+
+
+echo 'export NIX_PATH=nixpkgs=channel:nixpkgs-unstable' >> ~/.bashrc
+source ~/.bashrc
+
+
+echo $NIX_PATH
+
+
+nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs-unstable
+nix-channel --update
+
+
+
+
+
+nix-instantiate -I nixpkgs=https://nixos.org/channels/nixpkgs-unstable --find-file -A xorg.xorgserver
+
+
+
+
+export NIX_PATH=nixpkgs=$(nix-channel --list | grep nixpkgs-unstable | awk '{print $2}')
+echo "export NIX_PATH='$NIX_PATH'" >> ~/.bashrc
+source ~/.bashrc
+
+
+
+
+echo $NIX_PATH
+
+
+nix-channel --remove nixpkgs
+
+
+nix-channel --list
+
+sudo chown -R $(whoami) /nix
+
+
+
+nix-channel --update
+
+
+
+echo 'export NIX_PATH=nixpkgs=channel:nixpkgs-unstable' >> ~/.bashrc
+source ~/.bashrc
