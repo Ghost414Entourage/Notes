@@ -1,0 +1,789 @@
+sudo dnf update -y
+
+sudo mkdir -p /opt/anaconda3
+sudo chown $(whoami):$(whoami) /opt/anaconda3
+
+cd /
+
+cd opt
+
+wget https://repo.anaconda.com/archive/Anaconda3-2024.10-1-Linux-x86_64.sh
+
+sha256sum Anaconda3-2024.10-1-Linux-x86_64.sh
+
+bash Anaconda3-2024.10-1-Linux-x86_64.sh
+
+
+sudo du -sh /* | sort -h
+
+sudo dnf clean all
+
+sudo dnf autoremove -y
+
+sudo du -sh /var/log/*
+
+sudo rm -rf /var/log/*.log
+
+sudo mkdir /var/oled/anaconda3
+
+sudo chown $(whoami):$(whoami) /var/oled/anaconda3
+
+bash Anaconda3-2024.10-1-Linux-x86_64.sh
+
+/var/oled/anaconda3
+
+
+/var/oled/anaconda3/bin/conda init
+
+source ~/.bashrc
+
+conda --version
+
+conda activate
+
+conda info --envs
+
+conda create -n myenv python=X.Y
+
+conda create -n myenv python=3.13.1 numpy pandas xpra dbus
+
+conda create -n myenv python=3.12.7 numpy pandas xpra dbus -c conda-forge
+
+conda activate myenv
+
+conda install scipy matplotlib
+
+conda env remove -n myenv
+
+conda info --envs
+
+conda update -n base -c defaults conda
+
+conda config --add channels conda-forge
+
+conda search python
+
+
+
+
+conda deactivate
+conda activate base
+
+conda env list
+
+
+
+
+sudo dnf install -y epel-release
+sudo dnf install -y xpra xorg-x11-server-Xorg xorg-x11-xauth xorg-x11-fonts-Type1
+xpra --version
+
+conda install -c conda-forge xpra
+
+xpra attach :100
+
+
+python -c "import xpra; print('Xpra is installed and working!')"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh bash Miniconda3-latest-Linux-x86_64.sh
+
+bash Miniconda3-latest-Linux-x86_64.sh
+
+bash Anaconda3-2024.10-1-Linux-x86_64.sh -u
+
+
+
+
+
+
+
+
+sudo firewall-cmd --zone=public --add-port=8080/tcp --permanent
+sudo firewall-cmd --reload
+
+sudo firewall-cmd --zone=public --list-ports
+
+sudo firewall-cmd --zone=public --add-port=5900/tcp --permanent
+sudo firewall-cmd --reload
+
+sudo firewall-cmd --state
+
+sudo firewall-cmd --zone=public --add-port=10000-11000/tcp --permanent
+sudo firewall-cmd --reload
+
+sudo firewall-cmd --zone=public --add-port=5900/tcp --permanent
+sudo firewall-cmd --reload
+
+sudo firewall-cmd --zone=public --add-port=80/tcp --permanent
+sudo firewall-cmd --zone=public --add-port=443/tcp --permanent
+sudo firewall-cmd --reload
+
+sudo firewall-cmd --zone=public --list-ports
+
+
+
+
+sudo iptables -A INPUT -p tcp --dport 8080 -j ACCEPT  # Open port 8080 sudo iptables-save
+
+sudo iptables -L
+
+sudo nft add rule inet filter input tcp dport 8080 accept
+
+sudo nft list ruleset
+
+
+sudo ufw allow 8080/tcp  # Open port 8080
+
+sudo ufw status
+
+
+
+
+
+
+
+sudo iptables -A INPUT -p tcp --dport 8080 -j ACCEPT
+sudo iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+sudo iptables -A INPUT -j DROP  # Default deny rule for all other traffic
+sudo iptables -A FORWARD -j DROP
+
+
+sudo service iptables save
+
+
+ps aux | grep xpra
+
+
+sudo iptables -A INPUT -p tcp --dport 8080 -j ACCEPT
+
+sudo netstat -tulnp | grep 8080
+
+
+
+
+
+
+
+conda install conda-forge::python
+
+conda install conda-forge/label/broken::python
+
+conda install conda-forge/label/dev::python
+conda install conda-forge/label/prerelease::python
+
+conda install python-gil
+conda install python-jit
+conda install python-freethreading
+
+
+which python
+
+sudo nano /etc/profile.d/conda.sh
+
+export PATH="/var/oled/anaconda3/bin:$PATH"
+
+sudo chmod +x /etc/profile.d/conda.sh
+
+source /etc/profile.d/conda.sh
+
+python --version
+
+echo $PATH
+
+conda install python=3.13.1
+
+conda config --show channels
+
+conda config --add channels conda-forge
+conda config --add channels defaults
+conda config --add channels bioconda
+conda config --add channels pytorch
+conda config --add channels fastai
+conda config --add channels intel
+conda config --add channels nvidia
+conda config --add channels r
+conda config --add channels menpo
+conda config --add channels opencv
+conda config --add channels mapd
+conda config --add channels anaconda
+conda config --add channels cogsci
+conda config --add channels mapd
+conda config --add channels conda-blosc
+conda config --add channels qt
+conda config --add channels fury
+conda config --add channels rapidsai
+conda config --add channels miniconda
+conda config --add channels unofficial
+
+
+conda config --remove-key channels
+
+
+
+
+sudo dnf install git gcc python3-pip python3-devel libjpeg-devel openssl-devel \
+  libffi-devel libxml2-devel libxslt-devel zlib-devel libcurl-devel
+
+
+
+sudo yum groupinstall "Development Tools" -y
+sudo yum install -y python3 python3-pip git gcc-c++ make libtool automake
+sudo yum install -y libjpeg-devel libpng-devel libX11-devel
+sudo yum install -y gstreamer1 gstreamer1-plugins-base gstreamer1-plugins-good
+
+
+
+curl -o /etc/pki/rpm-gpg/NODESOURCE-GPG-SIGNING-KEY-EL https://rpm.nodesource.com/gpgkey/NODESOURCE-GPG-SIGNING-KEY-EL
+
+sudo yum install -y --nogpgcheck nodejs
+
+sudo yum clean all
+sudo yum install -y nodejs
+
+
+cd /opt 
+
+git clone https://github.com/Xpra-org/xpra-html5.git 
+
+cd xpra-html5
+
+./setup.py install
+
+sudo python3 setup.py install
+
+touch /root/.Xauthority
+
+sudo dnf install mesa-dri-drivers
+
+sudo systemctl stop dbus
+sudo systemctl start dbus
+sudo systemctl enable dbus
+sudo systemctl restart dbus
+sudo systemctl stop dbus
+sudo systemctl status dbus
+
+
+sudo dnf install gnome-shell
+
+
+
+
+
+
+sudo nano /etc/profile.d/xpra-html5.sh
+
+
+# xpra-html5 environment setup
+export XPRA_HTML5_DIR="/var/oled/anaconda3/share/xpra/www"
+export PATH="$PATH:/usr/local/bin"  # Add additional directories to your PATH as needed
+export XPRA_HTML5_CLIENT="$XPRA_HTML5_DIR/index.html"
+
+# Optional: Set any other variables if needed for your setup
+# Example for JavaScript libraries
+export XPRA_JS_LIB_DIR="$XPRA_HTML5_DIR/js/lib"
+
+
+sudo chmod +x /etc/profile.d/xpra-html5.sh
+
+
+source /etc/profile.d/xpra-html5.sh
+
+
+echo $XPRA_HTML5_DIR
+echo $XPRA_HTML5_CLIENT
+
+
+export XPRA_DEBUG=all
+
+
+
+conda install cpython --solver classic
+
+conda install -c conda-forge xterm --solver classic
+
+
+
+sudo useradd -m testuser
+sudo passwd testuser
+su - testuser
+startx
+sudo usermod -aG wheel testuser
+
+su - testuser
+sudo whoami
+
+sudo visudo
+
+
+export DISPLAY=:0.0
+
+export DISPLAY=:0
+
+echo $DISPLAY
+
+touch /root/.Xauthority
+
+startx
+
+
+sudo yum install xorg-x11-server-Xvfb
+
+
+ls -l /run/dbus/system_bus_socket
+sudo systemctl restart dbus.socket
+sudo systemctl start dbus.socket
+sudo systemctl enable dbus.socket
+sudo systemctl start dbus.socket
+sudo systemctl status dbus.socket
+
+
+
+sudo mv /usr/share/dbus-1/system.d/bluetooth.conf /usr/share/dbus-1/system.d/bluetooth.conf.bak
+sudo rm /usr/share/dbus-1/system.d/bluetooth.conf
+sudo systemctl disable bluetooth
+sudo systemctl stop bluetooth
+dbus-daemon --version
+rpm -qi dbus
+
+
+systemctl list-units --type=service | grep dbus
+systemctl status dbus-broker.service
+sudo systemctl restart dbus-broker.service
+sudo systemctl enable dbus-broker.service
+sudo systemctl start dbus-broker.service
+sudo systemctl status dbus-broker.service
+ls -l /etc/systemd/system/
+
+
+sudo ln -s /lib/systemd/system/dbus.service /etc/systemd/system/multi-user.target.wants/
+sudo systemctl restart dbus.socket
+
+sudo ls -l /tmp/dbus-*
+sudo chmod 777 /tmp/dbus-*
+
+sudo yum install xorg-x11-drv-* mesa-dri-drivers
+
+
+conda update -n base -c defaults conda
+
+
+xpra attach :100
+
+sudo yum install python3-pillow python3-psutil
+
+
+
+
+
+http://207.211.164.237:8080
+
+
+
+
+xpra start :100 --start-child=xterm --bind-tcp=0.0.0.0:10000 --no-daemon 
+
+export XPRA_DEBUG=all 
+
+xpra start :100 --start-child=xterm --html=0.0.0.0:10000 --no-daemon
+
+
+xpra start :100 --start-child=xterm --html=0.0.0.0:10000 --no-daemon --debug
+
+http://207.211.166.254:10000
+
+
+
+
+
+
+
+
+
+
+
+
+
+sudo yum install gstreamer1 gstreamer1-plugins-base gstreamer1-plugins-good gstreamer1-plugins-bad-free gstreamer1-plugins-ugly --solver classic
+
+sudo yum install pulseaudio 
+
+
+
+conda install -c conda-forge pyinotify  --solver classic 
+
+conda install -c conda-forge rencode bencode pyyaml --solver classic 
+
+
+sudo dnf install xorg-x11-server-Xvfb
+
+which Xvfb
+
+Xvfb :100 -screen 0 1024x768x24 &
+export DISPLAY=:100
+
+export XDG_RUNTIME_DIR=/run/user/$(id -u)
+
+sudo dnf install xterm
+
+conda install -c conda-forge pulseaudio
+
+conda install -c conda-forge pyinotify
+
+conda install -c conda-forge xdg
+
+sudo dnf install -y gcc make dkms kernel-devel
+
+git clone https://github.com/umlaeute/v4l2loopback.git
+cd v4l2loopback
+
+make
+
+sudo make install
+
+sudo modprobe v4l2loopback
+
+sudo modprobe v4l2loopback devices=1 video_nr=4 card_label="Webcam" exclusive_caps=1
+
+ls /dev/video*
+
+lsmod | grep v4l2loopback
+
+
+
+
+
+
+
+sudo nano /etc/profile.d/v4l2loopback.sh
+
+#!/bin/bash
+# v4l2loopback profile script
+
+# Set environment variables for v4l2loopback if needed
+export V4L2LOOPBACK_OPTIONS="devices=1 video_nr=4 card_label='Webcam' exclusive_caps=1"
+
+# Automatically load the v4l2loopback kernel module
+if ! lsmod | grep -q v4l2loopback; then
+    sudo modprobe v4l2loopback $V4L2LOOPBACK_OPTIONS
+fi
+
+
+sudo chmod +x /etc/profile.d/v4l2loopback.sh
+
+source /etc/profile.d/v4l2loopback.sh
+
+echo $DISPLAY
+
+export DISPLAY=:0
+
+xpra start :100 --start-child=xterm --html=0.0.0.0:10000 --no-daemon
+
+
+http://207.211.180.21:10000
+
+
+systemctl get-default
+
+systemctl set-default graphical.target
+
+cd /usr/lib/systemd/system
+
+ls -la 
+
+systemctl isolate graphical.target
+
+
+
+conda install conda-forge::gtk3
+
+conda install conda-forge::netifaces
+
+conda install conda-forge::xdg
+
+conda install anaconda::gstreamer
+
+conda install conda-forge::gst-plugins-base
+
+sudo dnf install pulseaudio-module-x11 --skip-broken
+
+
+sudo dnf install xfce4-session
+
+sudo dnf install gnome-session
+
+sudo modprobe uinput
+
+echo "uinput" | sudo tee /etc/modules-load.d/uinput.conf
+
+
+sudo ln -s /opt/xpra-html5/html5 /var/oled/anaconda3/envs/myenv/share/xpra/www
+sudo cp -r /opt/xpra-html5/html5 /var/oled/anaconda3/envs/myenv/share/xpra/www
+
+xpra start :100 --start-child=xfce4-session --bind-tcp=0.0.0.0:10000 --no-daemon
+
+
+
+conda install -c dsdale24 qt5
+
+sudo dnf install gtk3 gobject-introspection
+
+sudo dnf remove libsoup
+sudo dnf install libsoup
+
+sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
+flatpak search kdeconnect
+
+
+sudo dnf install cmake qt5-qtbase-devel qt5-qtconnectivity-devel
+
+
+conda install qt=5 cmake extra-cmake-modules
+
+conda install gcc_linux-64 gxx_linux-64 libarchive
+
+conda remove qt
+
+conda install qt6-main
+
+
+
+conda init
+source ~/.bashrc
+conda activate myenv
+
+source /var/oled/anaconda3/etc/profile.d/conda.sh
+conda activate myenv
+
+
+
+
+conda install conda-forge::xvfbwrapper
+
+sudo dnf install x264 libvpx libaom
+
+export GST_PLUGIN_PATH=/usr/lib64/gstreamer-1.0
+
+echo "export GST_PLUGIN_PATH=/usr/lib64/gstreamer-1.0" >> ~/.bashrc
+source ~/.bashrc
+
+sudo dnf update gstreamer*
+
+
+
+
+
+sudo dnf groupinstall "Development Tools"
+sudo dnf install cmake bison flex pkgconfig gstreamer1-devel libtool
+
+
+sudo dnf install libvpx-devel wavpack-devel x264-devel
+
+git clone https://gitlab.freedesktop.org/gstreamer/gstreamer.git
+cd gstreamer
+
+
+conda install anaconda::meson
+
+sudo dnf install libvpx-devel wavpack-devel x264-devel
+
+meson build
+
+meson setup build
+
+ninja -C build
+
+sudo ninja -C build install
+
+sudo dnf install libunistring-devel
+
+sudo dnf install nasm
+
+sudo dnf install soundtouch-devel
+
+gst-inspect-1.0
+
+gst-inspect-1.0 --gst-plugin-path=/usr/local/lib/gstreamer-1.0
+
+export GST_PLUGIN_PATH=/usr/local/lib/gstreamer-1.0
+
+echo "export GST_PLUGIN_PATH=/usr/local/lib/gstreamer-1.0" >> ~/.bashrc
+source ~/.bashrc
+
+
+
+cd /etc/profile.d/
+
+sudo nano gstreamer.sh
+
+export GST_PLUGIN_PATH=/usr/local/lib/gstreamer-1.0
+
+sudo chmod +x gstreamer.sh
+
+source /etc/profile
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+bash Miniconda3-latest-Linux-x86_64.sh
+
+
+source ~/miniconda3/bin/activate
+
+
+conda create --name xpra-env python=3.9
+
+conda activate xpra-env
+
+conda install -c conda-forge xpra
+
+conda deactivate
+
+/home/opc/miniconda3
+
+/root/miniconda3/bin/conda init
+
+conda config --set auto_activate_base true
+
+
+conda activate base
+
+
+conda init bash
+source ~/.bashrc
+
+conda clean --all
+
+ps aux | grep conda
+
+
+conda update conda
+
+conda create -n new-xpra-env -c conda-forge xpra
+conda activate new-xpra-env
+
+conda install -c conda-forge xpra --verbose
+
+conda install -c conda-forge xpra --verbose --debug
+
+conda clean --all
+
+
+
+conda install mamba -c conda-forge
+mamba install -c conda-forge xpra
+
+
+conda config --remove-key channels
+conda config --add channels conda-forge
+conda config --add channels defaults
+
+conda install -c conda-forge mamba
+
+mamba install -c conda-forge xpra
+
+export DISPLAY=:0
+
+
+
+
+
+
+
+
