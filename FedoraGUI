@@ -1,0 +1,15 @@
+dnf group list --hidden | grep -i desktop
+
+dnf group install kde-desktop
+
+sudo dnf -y groupinstall "KDE Plasma Workspaces" "base-x"
+
+systemctl get-default
+
+systemctl set-default graphical.target
+
+systemctl isolate graphical.target
+
+
+sudo dnf install akmod-nvidia
+
