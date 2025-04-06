@@ -1,0 +1,981 @@
+
+nano list_network_interfaces.swift
+
+
+import Foundation
+import SystemConfiguration
+
+func listNetworkInterfaces() {
+    // Call SCNetworkInterfaceCopyAll
+    if let interfaces = SCNetworkInterfaceCopyAll() as? [SCNetworkInterface] {
+        for interface in interfaces {
+            // Get the interface name
+            if let name = SCNetworkInterfaceGetBSDName(interface) {
+                print("Interface Name: \(name)")
+            }
+            // Get the interface type
+            if let type = SCNetworkInterfaceGetInterfaceType(interface) {
+                print("Interface Type: \(type)")
+            }
+            print("-----")
+        }
+    } else {
+        print("No network interfaces found.")
+    }
+}
+
+// Call the function
+listNetworkInterfaces()
+
+
+
+swift list_network_interfaces.swift
+
+
+
+
+
+
+
+
+
+
+import Foundation
+import SystemConfiguration
+
+func getBSDNameForInterface(interfaceName: String) {
+    // Get all network interfaces
+    if let interfaces = SCNetworkInterfaceCopyAll() as? [SCNetworkInterface] {
+        for interface in interfaces {
+            // Get the interface name
+            if let name = SCNetworkInterfaceGetBSDName(interface) {
+                // Compare with the specified interface name
+                if name as String == interfaceName {
+                    print("Interface Name: \(name as String)")
+                    
+                    // Get the interface type and convert CFString to String
+                    if let type = SCNetworkInterfaceGetInterfaceType(interface) {
+                        print("Interface Type: \(type as String)")
+                    } else {
+                        print("Interface Type: Unknown")
+                    }
+                    return
+                }
+            }
+        }
+    }
+    print("Interface \(interfaceName) not found.")
+}
+
+// Call the function for en0
+getBSDNameForInterface(interfaceName: "en0")
+
+
+
+
+
+
+
+
+import Foundation
+
+func listAllNetworkAddresses() {
+    var ifaddr: UnsafeMutablePointer<ifaddrs>? = nil
+    if getifaddrs(&ifaddr) == 0 {
+        var ptr = ifaddr
+        while ptr != nil {
+            let interface = ptr!.pointee
+            let addrFamily = interface.ifa_addr.pointee.sa_family
+
+            if addrFamily == AF_INET || addrFamily == AF_INET6 {
+                let name = String(cString: interface.ifa_name)
+                let addr = interface.ifa_addr
+
+                var hostname = [CChar](repeating: 0, count: Int(NI_MAXHOST))
+                if let addr = addr { // Safely unwrap the optional
+                    if getnameinfo(addr, socklen_t(addr.pointee.sa_len), &hostname, socklen_t(hostname.count), nil, 0, NI_NUMERICHOST) == 0 {
+                        let address = String(cString: hostname)
+                        print("Interface: \(name), Address: \(address)")
+                    }
+                }
+            }
+            ptr = interface.ifa_next
+        }
+        freeifaddrs(ifaddr)
+    }
+}
+
+// Call the function to list all network addresses
+listAllNetworkAddresses()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import Foundation
+import SystemConfiguration
+
+func getSupportedProtocolsForInterface(interfaceName: String) {
+    // Get all network interfaces
+    if let interfaces = SCNetworkInterfaceCopyAll() as? [SCNetworkInterface] {
+        for interface in interfaces {
+            // Get the interface name
+            if let name = SCNetworkInterfaceGetBSDName(interface) {
+                // Compare with the specified interface name
+                if name as String == interfaceName {
+                    print("Interface Name: \(name as String)")
+                    
+                    // Get the interface type
+                    if let type = SCNetworkInterfaceGetInterfaceType(interface) {
+                        print("Interface Type: \(type as String)")
+                    } else {
+                        print("Interface Type: Unknown")
+                    }
+                    
+                    // Get the supported protocol types
+                    if let protocols = SCNetworkInterfaceGetSupportedProtocolTypes(interface) {
+                        print("Supported Protocol Types:")
+                        for protocolType in protocols as! [String] {
+                            print("- \(protocolType)")
+                        }
+                    } else {
+                        print("No supported protocol types found.")
+                    }
+                    return
+                }
+            }
+        }
+    }
+    print("Interface \(interfaceName) not found.")
+}
+
+// Call the function for en0
+getSupportedProtocolsForInterface(interfaceName: "en0")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import Foundation
+import SystemConfiguration
+
+func getSupportedProtocolsForInterface(interfaceName: String) {
+    // Get all network interfaces
+    if let interfaces = SCNetworkInterfaceCopyAll() as? [SCNetworkInterface] {
+        for interface in interfaces {
+            // Get the interface name
+            if let name = SCNetworkInterfaceGetBSDName(interface) as String? {
+                // Compare with the specified interface name
+                if name == interfaceName {
+                    print("Interface Name: \(name)")
+                    
+                    // Get the interface type
+                    if let type = SCNetworkInterfaceGetInterfaceType(interface) as String? {
+                        print("Interface Type: \(type)")
+                    } else {
+                        print("Interface Type: Unknown")
+                    }
+                    
+                    // Get the supported protocol types
+                    if let protocols = SCNetworkInterfaceGetSupportedProtocolTypes(interface) as? [String] {
+                        print("Supported Protocol Types:")
+                        for protocolType in protocols {
+                            print("- \(protocolType)")
+                        }
+                    } else {
+                        print("No supported protocol types found.")
+                    }
+                    return
+                }
+            }
+        }
+    }
+    print("Interface \(interfaceName) not found.")
+}
+
+// Call the function for en0
+getSupportedProtocolsForInterface(interfaceName: "en0")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import Foundation
+import SystemConfiguration
+
+func getSupportedProtocolsForInterface(interfaceName: String) {
+    // Get the type identifier for SCNetworkInterface
+    let interfaceTypeID = SCNetworkInterfaceGetTypeID()
+    print("SCNetworkInterface Type ID: \(interfaceTypeID)")
+
+    // Get all network interfaces
+    if let interfaces = SCNetworkInterfaceCopyAll() as? [SCNetworkInterface] {
+        for interface in interfaces {
+            // Get the interface name
+            if let name = SCNetworkInterfaceGetBSDName(interface) as String? {
+                // Compare with the specified interface name
+                if name == interfaceName {
+                    print("Interface Name: \(name)")
+                    
+                    // Get the interface type
+                    if let type = SCNetworkInterfaceGetInterfaceType(interface) as String? {
+                        print("Interface Type: \(type)")
+                    } else {
+                        print("Interface Type: Unknown")
+                    }
+                    
+                    // Get the supported protocol types
+                    if let protocols = SCNetworkInterfaceGetSupportedProtocolTypes(interface) as? [String] {
+                        print("Supported Protocol Types:")
+                        for protocolType in protocols {
+                            print("- \(protocolType)")
+                        }
+                    } else {
+                        print("No supported protocol types found.")
+                    }
+                    return
+                }
+            }
+        }
+    }
+    print("Interface \(interfaceName) not found.")
+}
+
+// Call the function for en0
+getSupportedProtocolsForInterface(interfaceName: "en0")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import Foundation
+import SystemConfiguration
+
+func getSupportedProtocolsForInterface(interfaceName: String) {
+    // Get the type identifier for SCNetworkInterface
+    let interfaceTypeID = SCNetworkInterfaceGetTypeID()
+    print("SCNetworkInterface Type ID: \(interfaceTypeID)")
+
+    // Get all network interfaces
+    if let interfaces = SCNetworkInterfaceCopyAll() as? [SCNetworkInterface] {
+        for interface in interfaces {
+            // Get the interface name
+            if let name = SCNetworkInterfaceGetBSDName(interface) as String? {
+                // Compare with the specified interface name
+                if name == interfaceName {
+                    print("Interface Name: \(name)")
+                    
+                    // Get the localized display name
+                    if let localizedDisplayName = SCNetworkInterfaceGetLocalizedDisplayName(interface) as String? {
+                        print("Localized Display Name: \(localizedDisplayName)")
+                    } else {
+                        print("Localized Display Name: Not available")
+                    }
+                    
+                    // Get the interface type
+                    if let type = SCNetworkInterfaceGetInterfaceType(interface) as String? {
+                        print("Interface Type: \(type)")
+                    } else {
+                        print("Interface Type: Unknown")
+                    }
+                    
+                    // Get the supported protocol types
+                    if let protocols = SCNetworkInterfaceGetSupportedProtocolTypes(interface) as? [String] {
+                        print("Supported Protocol Types:")
+                        for protocolType in protocols {
+                            print("- \(protocolType)")
+                        }
+                    } else {
+                        print("No supported protocol types found.")
+                    }
+                    return
+                }
+            }
+        }
+    }
+    print("Interface \(interfaceName) not found.")
+}
+
+// Call the function for en0
+getSupportedProtocolsForInterface(interfaceName: "en0")
+
+
+
+
+
+
+
+
+
+
+
+
+import Foundation
+import SystemConfiguration
+
+func getSupportedProtocolsForInterface(interfaceName: String) {
+    // Get the type identifier for SCNetworkInterface
+    let interfaceTypeID = SCNetworkInterfaceGetTypeID()
+    print("SCNetworkInterface Type ID: \(interfaceTypeID)")
+
+    // Get all network interfaces
+    if let interfaces = SCNetworkInterfaceCopyAll() as? [SCNetworkInterface] {
+        for interface in interfaces {
+            // Get the interface name
+            if let name = SCNetworkInterfaceGetBSDName(interface) as String? {
+                // Compare with the specified interface name
+                if name == interfaceName {
+                    print("Interface Name: \(name)")
+                    
+                    // Get the localized display name
+                    if let localizedDisplayName = SCNetworkInterfaceGetLocalizedDisplayName(interface) as String? {
+                        print("Localized Display Name: \(localizedDisplayName)")
+                    } else {
+                        print("Localized Display Name: Not available")
+                    }
+                    
+                    // Get the interface type
+                    if let type = SCNetworkInterfaceGetInterfaceType(interface) as String? {
+                        print("Interface Type: \(type)")
+                    } else {
+                        print("Interface Type: Unknown")
+                    }
+                    
+                    // Get the supported protocol types
+                    if let protocols = SCNetworkInterfaceGetSupportedProtocolTypes(interface) as? [String] {
+                        print("Supported Protocol Types:")
+                        for protocolType in protocols {
+                            print("- \(protocolType)")
+                        }
+                    } else {
+                        print("No supported protocol types found.")
+                    }
+                    return
+                }
+            }
+        }
+    }
+    print("Interface \(interfaceName) not found.")
+}
+
+// Call the function for en0
+getSupportedProtocolsForInterface(interfaceName: "en0")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import Foundation
+import SystemConfiguration
+
+func getSupportedProtocolsForInterface(interfaceName: String) {
+    // Create a SCPreferences reference
+    guard let prefs = SCPreferencesCreate(nil, "NetworkPreferences" as CFString, nil) else {
+        print("Failed to create SCPreferences reference.")
+        return
+    }
+
+    // Get all network services
+    if let services = SCNetworkServiceCopyAll(prefs) as? [SCNetworkService] {
+        for service in services {
+            // Get the interface associated with the service
+            if let interface = SCNetworkServiceGetInterface(service) {
+                // Get the interface name
+                if let name = SCNetworkInterfaceGetBSDName(interface) as String? {
+                    // Compare with the specified interface name
+                    if name == interfaceName {
+                        print("Interface Name: \(name)")
+                        
+                        // Get the localized display name
+                        if let localizedDisplayName = SCNetworkInterfaceGetLocalizedDisplayName(interface) as String? {
+                            print("Localized Display Name: \(localizedDisplayName)")
+                        } else {
+                            print("Localized Display Name: Not available")
+                        }
+                        
+                        // Get the interface type
+                        if let type = SCNetworkInterfaceGetInterfaceType(interface) as String? {
+                            print("Interface Type: \(type)")
+                        } else {
+                            print("Interface Type: Unknown")
+                        }
+                        
+                        // Get the supported protocols for the service
+                        if let protocols = SCNetworkServiceCopyProtocols(service) as? [SCNetworkProtocol] {
+                            print("Protocols for service:")
+                            for protocolRef in protocols {
+                                if let protocolType = SCNetworkProtocolGetProtocolType(protocolRef) as String? {
+                                    print("- Protocol Type: \(protocolType)")
+                                    
+                                    // Get the configuration for the protocol
+                                    if let config = SCNetworkProtocolGetConfiguration(protocolRef) as? [String: Any] {
+                                        print("  Configuration for protocol \(protocolType):")
+                                        for (key, value) in config {
+                                            print("    \(key): \(value)")
+                                        }
+                                    } else {
+                                        print("  No configuration found for protocol \(protocolType).")
+                                    }
+                                }
+                            }
+                        } else {
+                            print("No protocols found for service.")
+                        }
+                        return
+                    }
+                }
+            }
+        }
+    }
+    print("Interface \(interfaceName) not found.")
+}
+
+// Call the function for en0
+getSupportedProtocolsForInterface(interfaceName: "en0")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import Foundation
+import SystemConfiguration
+
+func getSupportedProtocolsForInterface(interfaceName: String) {
+    // Create a SCPreferences reference
+    guard let prefs = SCPreferencesCreate(nil, "NetworkPreferences" as CFString, nil) else {
+        print("Failed to create SCPreferences reference.")
+        return
+    }
+
+    // Get all network services
+    if let services = SCNetworkServiceCopyAll(prefs) as? [SCNetworkService] {
+        for service in services {
+            // Get the interface associated with the service
+            if let interface = SCNetworkServiceGetInterface(service) {
+                // Get the interface name
+                if let name = SCNetworkInterfaceGetBSDName(interface) as String? {
+                    // Compare with the specified interface name
+                    if name == interfaceName {
+                        print("Interface Name: \(name)")
+                        
+                        // Get the localized display name
+                        if let localizedDisplayName = SCNetworkInterfaceGetLocalizedDisplayName(interface) as String? {
+                            print("Localized Display Name: \(localizedDisplayName)")
+                        } else {
+                            print("Localized Display Name: Not available")
+                        }
+                        
+                        // Get the interface type
+                        if let type = SCNetworkInterfaceGetInterfaceType(interface) as String? {
+                            print("Interface Type: \(type)")
+                        } else {
+                            print("Interface Type: Unknown")
+                        }
+                        
+                        // Get the supported protocols for the service
+                        if let protocols = SCNetworkServiceCopyProtocols(service) as? [SCNetworkProtocol] {
+                            print("Protocols for service:")
+                            for protocolRef in protocols {
+                                if let protocolType = SCNetworkProtocolGetProtocolType(protocolRef) as String? {
+                                    print("- Protocol Type: \(protocolType)")
+                                    
+                                    // Get the configuration for the protocol
+                                    if let config = SCNetworkProtocolGetConfiguration(protocolRef) as? [String: Any] {
+                                        print("  Configuration for protocol \(protocolType):")
+                                        for (key, value) in config {
+                                            print("    \(key): \(value)")
+                                        }
+                                    } else {
+                                        print("  No configuration found for protocol \(protocolType).")
+                                    }
+                                }
+                            }
+                        } else {
+                            print("No protocols found for service.")
+                        }
+                        return
+                    }
+                }
+            }
+        }
+    }
+    print("Interface \(interfaceName) not found.")
+}
+
+// Call the function for en0
+getSupportedProtocolsForInterface(interfaceName: "en0")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import Foundation
+import SystemConfiguration
+
+func getSupportedProtocolsForInterface(interfaceName: String) {
+    // Create a SCPreferences reference
+    guard let prefs = SCPreferencesCreate(nil, "NetworkPreferences" as CFString, nil) else {
+        print("Failed to create SCPreferences reference.")
+        return
+    }
+
+    // Get all network services
+    if let services = SCNetworkServiceCopyAll(prefs) as? [SCNetworkService] {
+        for service in services {
+            // Get the interface associated with the service
+            if let interface = SCNetworkServiceGetInterface(service) {
+                // Get the interface name
+                if let name = SCNetworkInterfaceGetBSDName(interface) as String? {
+                    // Compare with the specified interface name
+                    if name == interfaceName {
+                        print("Interface Name: \(name)")
+                        
+                        // Get the localized display name
+                        if let localizedDisplayName = SCNetworkInterfaceGetLocalizedDisplayName(interface) as String? {
+                            print("Localized Display Name: \(localizedDisplayName)")
+                        } else {
+                            print("Localized Display Name: Not available")
+                        }
+                        
+                        // Get the interface type
+                        if let type = SCNetworkInterfaceGetInterfaceType(interface) as String? {
+                            print("Interface Type: \(type)")
+                        } else {
+                            print("Interface Type: Unknown")
+                        }
+                        
+                        // Get the supported protocols for the service
+                        if let protocols = SCNetworkServiceCopyProtocols(service) as? [SCNetworkProtocol] {
+                            print("Protocols for service:")
+                            for protocolRef in protocols {
+                                if let protocolType = SCNetworkProtocolGetProtocolType(protocolRef) as String? {
+                                    print("- Protocol Type: \(protocolType)")
+                                    
+                                    // Check if the protocol is enabled
+                                    let isEnabled = SCNetworkProtocolGetEnabled(protocolRef)
+                                    print("  Enabled: \(isEnabled)")
+                                    
+                                    // Get the configuration for the protocol
+                                    if let config = SCNetworkProtocolGetConfiguration(protocolRef) as? [String: Any] {
+                                        print("  Configuration for protocol \(protocolType):")
+                                        for (key, value) in config {
+                                            print("    \(key): \(value)")
+                                        }
+                                    } else {
+                                        print("  No configuration found for protocol \(protocolType).")
+                                    }
+                                }
+                            }
+                        } else {
+                            print("No protocols found for service.")
+                        }
+                        return
+                    }
+                }
+            }
+        }
+    }
+    print("Interface \(interfaceName) not found.")
+}
+
+// Call the function for en0
+getSupportedProtocolsForInterface(interfaceName: "en0")
+
+
+
+
+
+
+
+
+
+import Foundation
+import SystemConfiguration
+
+func getSupportedProtocolsForInterface(interfaceName: String) {
+    // Create a SCPreferences reference
+    guard let prefs = SCPreferencesCreate(nil, "NetworkPreferences" as CFString, nil) else {
+        print("Failed to create SCPreferences reference.")
+        return
+    }
+
+    // Get all network services
+    if let services = SCNetworkServiceCopyAll(prefs) as? [SCNetworkService] {
+        for service in services {
+            // Get the interface associated with the service
+            if let interface = SCNetworkServiceGetInterface(service) {
+                // Get the interface name
+                if let name = SCNetworkInterfaceGetBSDName(interface) as String? {
+                    // Compare with the specified interface name
+                    if name == interfaceName {
+                        print("Interface Name: \(name)")
+                        
+                        // Get the localized display name
+                        if let localizedDisplayName = SCNetworkInterfaceGetLocalizedDisplayName(interface) as String? {
+                            print("Localized Display Name: \(localizedDisplayName)")
+                        } else {
+                            print("Localized Display Name: Not available")
+                        }
+                        
+                        // Get the interface type
+                        if let type = SCNetworkInterfaceGetInterfaceType(interface) as String? {
+                            print("Interface Type: \(type)")
+                        } else {
+                            print("Interface Type: Unknown")
+                        }
+                        
+                        // Get the supported protocols for the service
+                        if let protocols = SCNetworkServiceCopyProtocols(service) as? [SCNetworkProtocol] {
+                            print("Protocols for service:")
+                            for protocolRef in protocols {
+                                // Get the protocol type
+                                if let protocolType = SCNetworkProtocolGetProtocolType(protocolRef) {
+                                    print("- Protocol Type: \(protocolType as String)")
+                                    
+                                    // Check if the protocol is enabled
+                                    let isEnabled = SCNetworkProtocolGetEnabled(protocolRef)
+                                    print("  Enabled: \(isEnabled)")
+                                    
+                                    // Get the configuration for the protocol
+                                    if let config = SCNetworkProtocolGetConfiguration(protocolRef) as? [String: Any] {
+                                        print("  Configuration for protocol \(protocolType as String):")
+                                        for (key, value) in config {
+                                            print("    \(key): \(value)")
+                                        }
+                                    } else {
+                                        print("  No configuration found for protocol \(protocolType as String).")
+                                    }
+                                } else {
+                                    print("  Failed to get protocol type.")
+                                }
+                            }
+                        } else {
+                            print("No protocols found for service.")
+                        }
+                        return
+                    }
+                }
+            }
+        }
+    }
+    print("Interface \(interfaceName) not found.")
+}
+
+// Call the function for en0
+getSupportedProtocolsForInterface(interfaceName: "en0")
+
+
+
+
+
+
+
+
+
+
+import Foundation
+import SystemConfiguration
+
+func getSupportedProtocolsForInterface(interfaceName: String) {
+    // Create a SCPreferences reference
+    guard let prefs = SCPreferencesCreate(nil, "NetworkPreferences" as CFString, nil) else {
+        print("Failed to create SCPreferences reference.")
+        return
+    }
+
+    // Get all network services
+    if let services = SCNetworkServiceCopyAll(prefs) as? [SCNetworkService] {
+        for service in services {
+            // Get the interface associated with the service
+            if let interface = SCNetworkServiceGetInterface(service) {
+                // Get the interface name
+                if let name = SCNetworkInterfaceGetBSDName(interface) as String? {
+                    // Compare with the specified interface name
+                    if name == interfaceName {
+                        print("Interface Name: \(name)")
+                        
+                        // Get the localized display name
+                        if let localizedDisplayName = SCNetworkInterfaceGetLocalizedDisplayName(interface) as String? {
+                            print("Localized Display Name: \(localizedDisplayName)")
+                        } else {
+                            print("Localized Display Name: Not available")
+                        }
+                        
+                        // Get the interface type
+                        if let type = SCNetworkInterfaceGetInterfaceType(interface) as String? {
+                            print("Interface Type: \(type)")
+                        } else {
+                            print("Interface Type: Unknown")
+                        }
+                        
+                        // Get the supported protocols for the service
+                        if let protocols = SCNetworkServiceCopyProtocols(service) as? [SCNetworkProtocol] {
+                            print("Protocols for service:")
+                            for protocolRef in protocols {
+                                // Get the protocol type
+                                if let protocolType = SCNetworkProtocolGetProtocolType(protocolRef) {
+                                    print("- Protocol Type: \(protocolType as String)")
+                                    
+                                    // Check if the protocol is enabled
+                                    let isEnabled = SCNetworkProtocolGetEnabled(protocolRef)
+                                    print("  Enabled: \(isEnabled)")
+                                    
+                                    // Get the configuration for the protocol
+                                    if let config = SCNetworkProtocolGetConfiguration(protocolRef) as? [String: Any] {
+                                        print("  Configuration for protocol \(protocolType as String):")
+                                        for (key, value) in config {
+                                            print("    \(key): \(value)")
+                                        }
+                                    } else {
+                                        print("  No configuration found for protocol \(protocolType as String).")
+                                    }
+                                } else {
+                                    print("  Failed to get protocol type.")
+                                }
+                            }
+                        } else {
+                            print("No protocols found for service.")
+                        }
+                        return
+                    }
+                }
+            }
+        }
+    }
+    print("Interface \(interfaceName) not found.")
+}
+
+// Call the function for en0
+getSupportedProtocolsForInterface(interfaceName: "en0")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import Foundation
+import SystemConfiguration
+
+func getSupportedProtocolsForInterface(interfaceName: String) {
+    // Create a SCPreferences reference
+    guard let prefs = SCPreferencesCreate(nil, "NetworkPreferences" as CFString, nil) else {
+        print("Failed to create SCPreferences reference.")
+        return
+    }
+
+    // Get all network services
+    if let services = SCNetworkServiceCopyAll(prefs) as? [SCNetworkService] {
+        for service in services {
+            // Get the interface associated with the service
+            if let interface = SCNetworkServiceGetInterface(service) {
+                // Get the interface name
+                if let name = SCNetworkInterfaceGetBSDName(interface) as String? {
+                    // Compare with the specified interface name
+                    if name == interfaceName {
+                        print("Interface Name: \(name)")
+                        
+                        // Get the localized display name
+                        if let localizedDisplayName = SCNetworkInterfaceGetLocalizedDisplayName(interface) as String? {
+                            print("Localized Display Name: \(localizedDisplayName)")
+                        } else {
+                            print("Localized Display Name: Not available")
+                        }
+                        
+                        // Get the interface type
+                        if let type = SCNetworkInterfaceGetInterfaceType(interface) as String? {
+                            print("Interface Type: \(type)")
+                        } else {
+                            print("Interface Type: Unknown")
+                        }
+                        
+                        // Get the supported protocols for the service
+                        if let protocols = SCNetworkServiceCopyProtocols(service) as? [SCNetworkProtocol] {
+                            print("Protocols for service:")
+                            for protocolRef in protocols {
+                                // Check the type ID of the protocol
+                                let protocolTypeID = SCNetworkProtocolGetTypeID()
+                                print("  Protocol Type ID: \(protocolTypeID)")
+                                
+                                // Get the protocol type
+                                if let protocolType = SCNetworkProtocolGetProtocolType(protocolRef) {
+                                    print("- Protocol Type: \(protocolType as String)")
+                                    
+                                    // Check if the protocol is enabled
+                                    let isEnabled = SCNetworkProtocolGetEnabled(protocolRef)
+                                    print("  Enabled: \(isEnabled)")
+                                    
+                                    // Get the configuration for the protocol
+                                    if let config = SCNetworkProtocolGetConfiguration(protocolRef) as? [String: Any] {
+                                        print("  Configuration for protocol \(protocolType as String):")
+                                        for (key, value) in config {
+                                            print("    \(key): \(value)")
+                                        }
+                                    } else {
+                                        print("  No configuration found for protocol \(protocolType as String).")
+                                    }
+                                } else {
+                                    print("  Failed to get protocol type.")
+                                }
+                            }
+                        } else {
+                            print("No protocols found for service.")
+                        }
+                        return
+                    }
+                }
+            }
+        }
+    }
+    print("Interface \(interfaceName) not found.")
+}
+
+// Call the function for en0
+getSupportedProtocolsForInterface(interfaceName: "en0")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
