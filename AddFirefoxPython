@@ -1,0 +1,83 @@
+wget https://archive.mozilla.org/pub/firefox/releases/latest/README.txt
+
+
+mkdir firefox_downloader
+cd firefox_downloader
+
+python3 -m venv venv
+source venv/bin/activate
+
+/Users/casper/firefox_downloader/venv/bin/python3 -m pip install --upgrade pip
+
+pip3 install requests
+
+pip freeze > requirements.txt
+
+cat requirements.txt
+
+pip list
+
+chmod +w requirements.txt
+
+pip3 install mozdownload
+
+pip3 install virtualenv virtualenvwrapper
+
+mozdownload --version=latest
+
+mozdownload --version=latest-beta
+
+mozdownload --version=latest-esr
+
+mozdownload --type candidate --version=latest
+
+mozdownload --type=daily --branch=mozilla-aurora --platform=win32
+
+mozdownload --application=thunderbird --version=latest
+
+mozdownload --url=https://raw.github.com/mozilla/mozdownload/master/README.md
+
+pip3 install playwright
+
+playwright install webkit
+
+python3 -m playwright install firefox
+
+playwright show-browsers
+
+playwright uninstall firefox
+
+playwright uninstall webkit
+
+/Users/caspermedved/Library/Caches/ms-playwright/firefox-1466
+
+python3 -m pip install pipx
+
+pipx --version
+
+pipx ensurepath
+
+python3 -m pip install --user pipx
+
+pipx ensurepath
+
+
+
+
+
+
+
+
+
+
+python -m pip install --upgrade pip
+
+python -m pip install --upgrade pip --user
+
+
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+python get-pip.py
+
+python -m pip install --upgrade pip
+
+
