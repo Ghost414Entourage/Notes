@@ -1,0 +1,1284 @@
+pmset -g assertions
+
+system_profiler SPMemoryDataType
+
+
+sudo pmset -a disablesleep 1
+
+sudo pmset -a disablesleep 0
+
+
+pmset -g
+
+pmset -g assertions
+
+system_profiler SPDisplaysDataType
+
+open /System/Library/PreferencePanes/EnergySaver.prefPane
+
+
+
+
+
+
+
+
+
+
+
+sudo apt install squid
+
+cd /
+
+cd etc
+
+cd squid 
+
+sudo systemctl enable --now squid
+
+sudo nano /etc/squid/squid.conf
+
+cd conf.d
+
+sudoedit local.conf
+
+# Define the HTTP port Squid will listen on
+http_port 8080
+
+# Define the cache directory and parameters
+cache_dir ufs /var/spool/squid 100 16 256
+
+# Setup basic authentication
+auth_param basic program /usr/lib/squid/basic_ncsa_auth /etc/squid/htpasswd
+auth_param basic realm proxy
+
+# Define an ACL for your specific IP address
+acl my_mac src 75.9.162.190
+
+# Define an ACL for authenticated users
+acl authenticated proxy_auth REQUIRED
+
+# Allow only your Mac's IP address and require authentication
+http_access allow my_mac authenticated
+
+# Deny access to all other requests
+http_access deny all
+
+sudo systemctl restart squid
+
+sudo systemctl status  squid 
+
+sudo journalctl -xe -u squid
+
+sudo ss -natp
+
+sudo ss -natp | less -S
+
+cd /etc/squid/conf.d
+
+cd /usr/lib/squid
+
+sudo apt update
+
+sudo apt install apache2-utils
+
+sudo htpasswd -c /etc/squid/htpasswd casper
+
+cd ..
+
+cat htpasswd
+
+ cat ./conf.d/local.conf 
+
+/usr/lib/squid/basic_ncsa_auth /etc/squid/htpasswd
+
+Type your name and password in 
+
+sudo systemctl restart squid
+
+squid -k parse
+
+chown -R proxy:proxy /var/spool/squid
+chown proxy:proxy /etc/squid/htpasswd
+
+squid -X
+
+systemctl start squid.service
+
+systemctl enable squid.service
+
+sudo systemctl status squid.service
+
+networksetup -listallnetworkservices
+
+
+
+
+
+
+
+
+
+
+
+
+
+rm -rf ~/Library/Caches/com.apple.Safari/*
+
+rm -rf ~/Library/Safari/Databases
+rm -rf ~/Library/Safari/LocalStorage
+rm -rf ~/Library/Safari/History.db
+
+rm -rf ~/Library/WebKit/com.apple.Safari/*
+
+rm -rf ~/Library/Caches/Google/Chrome/*
+
+rm -rf ~/Library/Application\ Support/Google/Chrome/Default/Cookies
+rm -rf ~/Library/Application\ Support/Google/Chrome/Default/Local\ Storage
+
+rm -rf ~/Library/Application\ Support/Google/Chrome/Default/History
+
+rm -rf ~/Library/Caches/Mozilla/Firefox/Profiles/*.default-release/cache2/*
+
+rm -rf ~/Library/Application\ Support/Firefox/Profiles/*.default-release/cookies.sqlite
+rm -rf ~/Library/Application\ Support/Firefox/Profiles/*.default-release/webappsstore.sqlite
+
+rm -rf ~/Library/Application\ Support/Firefox/Profiles/*.default-release/places.sqlite
+
+rm -rf /private/var/folders/*
+
+rm -rf ~/Library/Safari/Extensions
+
+rm -rf ~/Library/Saved\ Application\ State/com.apple.Safari.savedState
+
+rm -rf ~/Library/Application\ Support/Google/Chrome/Default/Extensions
+
+rm -rf ~/Library/Application\ Support/Google/Chrome/Default/Sync\ Data
+
+rm -rf ~/Library/Application\ Support/Firefox/Profiles/*.default-release/extensions
+
+rm -rf ~/Library/Saved\ Application\ State/org.mozilla.firefox.savedState
+
+rm -rf ~/Library/WebKit
+
+rm -rf ~/Library/Internet\ Plug-Ins
+
+rm -rf ~/Library/Application\ Support/CrashReporter/*
+
+sudo rm -rf /var/log/*
+
+rm -rf ~/Library/Logs/*
+
+rm -rf ~/Library/Application\ Support/*/Caches/*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Navigate to /Library/Preferences, and select the com.apple.Preview.plist file.
+￼
+Use Quick Look (or press Command-Y) to view the preference file contents.
+
+
+
+Manually Connect to an SMB Share
+1. In the Finder, choose Go > Connect to Server (or press Command-K).
+2. In the Server Address field, enter smb://server.pretendco.com to connect using the SMB protocol.
+3. Before you click Connect, click the Add (+) button at the bottom of the Favorite Servers list. 
+4. ￼
+
+
+
+/Library/Preferences/SystemConfiguration/
+
+
+View Network Information
+ifconfig: Displays information about network interfaces.
+ipconfig getifaddr [interface]: Retrieves the IP address of a specific network interface.
+Get IP address: ipconfig getifaddr en0
+Get subnet mask: ipconfig getoption en0 subnet_mask
+Get DNS server: ipconfig getoption en0 domain_name_server
+Get information about how en0 obtained its DHCP: ipconfig getpacket en0
+Display Routing Table
+netstat -nr: Shows the routing table, including the destination, gateway, and interface
+Flush DNS Cache
+dscacheutil -flushcache: Clears the DNS cache on your Mac
+Renew DHCP Lease
+sudo ipconfig set [interface] DHCP: Renews the DHCP lease for a specific network interface
+Enable/Disable Network Interfaces
+networksetup -setnetworkserviceenabled [service] [on/off]: Enables or disables a network service
+Change Network Configuration
+networksetup -setmanual [interface] [IP] [subnet mask] [gateway]: Sets a manual IP configuration for a network interface
+networksetup -setdhcp [interface]: Switches a network interface to DHCP configuration
+Manage Wi-Fi Connections
+networksetup -setairportpower [airport] [on/off]: Turns the Wi-Fi interface on or off
+networksetup -setairportnetwork [airport] [SSID] [password]: Connects to a specific Wi-Fi network
+Network Setup
+Get a list of locations on the computer: networksetup -listlocations
+Get the active location: networksetup -getcurrentlocation
+Configure a manual static IP address: networksetup -setmanual Wi-Fi 192.168.1.xxx
+255.255.255.0 192.168.1.xxx
+Configure a DNS server: networksetup -setdnsservers Wi-Fi 192.168.1.xxx 192.168.1.xxx Get DNS server: networksetup -getdnsservers Wi-Fi
+Please note that some commands may require administrator privileges (use sudo) and you should replace the [interface], [IP], [subnet mask], [gateway], [airport], [SSID], and [password] placeholders with the appropriate values specific to your network configuration.
+
+
+Leftovers of uninstalled programs: You can safely remove the following folders related to uninstalled programs:
+~/Library/Preferences
+~/Library/Containers/[App name]/Data/Library/Preferences ~/Library/Application Support/[App or Developer name] /Library/Application Support/[App or Developer name]
+~/Library/Application Support/[App or Developer name] /Library/Application Support/[App or Developer name] ~/Library/Containers/[App Name]/Data/Library/Caches/[App Name] ~/Library/Saved Application State ~/Library/Cookies ~/Library/LaunchAgents ~/Library/Screen Savers
+
+
+
+
+
+What Is the Daemon?
+A daemon is a plist file (job description).
+A daemon in the *OS operating system family is represented by a config file (.plist) with a description of the daemon and the executable to run. Daemons are run under launchd.
+Note
+In this book, the term daemon is used to mean the pair-specific configuration plist and executable unless another meaning is explicitly given.
+To run under launchd, you must provide a configuration property list file for your daemon. This file contains information about your daemon. Specifying this information in a property list file allows launchd to register and launch your daemon immediately or on demand.
+A daemon has a configuration file in property list [1] format. The typical daemon configuration contains such required and recommended keys as described in Table 2-1.
+Table 2-1
+Most Common launchd Configuration Plist Keys
+Key	Description
+Label	Contains a unique string that identifies your daemon to launchd. (Required.)
+ProgramArguments	Contains the arguments used to launch your daemon. (Required.)
+Note: May be replaced with the Program key specifying the path to the executable instead of an array of arguments.
+KeepAlive	This key specifies whether your daemon launches on demand or must always be running.
+RunAtLoad	This key specifies whether your daemon launches when loaded or should run only on-demand.
+MachServices	This optional key is used to specify Mach services to be registered with the Mach bootstrap subsystem. Each key in this dictionary should be the name of the service to be advertised. The value of the key must be a Boolean and set to true. Alternatively, a dictionary can be used instead of a simple true value.
+Table 2-2
+Daemons Placement on File System
+Location	Description
+/System/Library/LaunchDaemons	Apple’s system-wide daemons
+/Library/LaunchDaemons	Third-party system-wide daemons provided by the administrator
+/System/Library/LaunchAgents	Apple’s per-user agents installed for all users
+/Library/LaunchAgents	Third-party per-user agents installed for all users (provided by administrator)
+~/Library/LaunchAgents	Third-party per-user agents installed only for the current user (provided by the current user or administrator)
+
+
+
+
+scutil
+Mac OS X stores network configuration in a database called the dynamic store. You can get at this database using scutil, the system configuration utility. Before you can do anything, you must connect to the configuration daemon (configd ) with the open command (close the session with the close command, and exit scutil with quit):
+Chez-Jepstone:~ bjepson$ sudo scutil
+Password: ********
+> open
+
+List the contents (a collection of keys) of the configuration database with the list command. The following shows abbreviated output from this command:
+> list
+  subKey [0] = DirectoryService:PID
+  subKey [1] = Plugin:IPConfiguration
+  subKey [2] = Setup:
+  subKey [3] = Setup:/
+  subKey [4] = Setup:/Network/Global/IPv4
+  subKey [5] = Setup:/Network/HostNames
+  subKey [6] = Setup:/Network/Service/0
+  subKey [7] = Setup:/Network/Service/0/Ethernet
+  subKey [8] = Setup:/Network/Service/0/IPv4
+  subKey [9] = Setup:/Network/Service/0/IPv6
+  subKey [10] = Setup:/Network/Service/0/Interface
+  subKey [11] = Setup:/Network/Service/0/Proxies
+
+You can show the contents of a key with the show command. The contents of a key are stored as a dictionary (key/value pairs). For example, here are the default proxy settings for built-in Ethernet on Mac OS X (use show Setup:/Network/Service/0/Interface to verify that Service shows a UserDefinedName of Built-in Ethernet):
+> show Setup:/Network/Service/0/Proxies
+<dictionary> {
+  RTSPEnable : 0
+  HTTPSEnable : 0
+  SOCKSEnable : 0
+  FTPPassive : 1
+  GopherEnable : 0
+}
+
+Here are the proxy settings for a Mac OS X machine that’s been configured to use a proxy server:
+> show Setup:/Network/Service/0/Proxies
+<dictionary> {
+  RTSPEnable : 0
+  HTTPSEnable : 0
+  SOCKSEnable : 0
+  FTPPassive : 1
+  GopherEnable : 0
+  HTTPPort : 8080
+  HTTPProxy : 192.168.254.1
+  HTTPEnable : 1
+}
+
+To change an entry, lock the database, initialize an empty dictionary entry with d.init, and get the current values of the key you want to change:
+> lock
+> d.init
+> get Setup:/Network/Service/0/Proxies
+
+Make your changes to the dictionary, then check them with d.show:
+> d.add HTTPPort 8888
+> d.add HTTPProxy proxy.nowhere.oreilly.com
+> d.add HTTPEnable 1
+> d.show
+<dictionary> {
+  FTPPassive : 1
+  HTTPPort : 8888
+  HTTPEnable : 1
+  RTSPEnable : 0
+  HTTPProxy : proxy.nowhere.oreilly.com
+  GopherEnable : 0
+  HTTPSEnable : 0
+  SOCKSEnable : 0
+}
+
+If you are happy with the dictionary values, set the key (this copies the dictionary into the specified key), unlock the database, and examine the key:
+> set Setup:/Network/Service/0/Proxies
+> unlock 
+> show Setup:/Network/Service/0/Proxies
+<dictionary> {
+  RTSPEnable : 0
+  HTTPSEnable : 0
+  SOCKSEnable : 0
+  FTPPassive : 1
+  GopherEnable : 0
+  HTTPPort : 8888
+  HTTPProxy : proxy.nowhere.oreilly.com
+  HTTPEnable : 1
+}
+
+Warning
+Be careful while the database is locked. If you try to do something seemingly innocuous, such as switching network location, you could cause the system to behave erratically. It’s best to get in and out of the database as quickly as possible.
+
+d.add State:/Network/Global/DNS SearchDomains []
+set State:/Network/Global/DNS
+show State:/Network/Global/DNS
+
+
+This book assumes that your shell is set to Zsh. While a lot of the examples will work with Bash, some of the more advanced commands will not function properly. You should change your shell to Zsh with the chsh command.
+% chsh -s /bin/zsh
+After that, all new Terminal windows will use Zsh for the shell. If you ever need to switch your shell back to Bash, you can use chsh again.
+% chsh -s /bin/bash
+
+
+
+
+
+Path	Description
+/	Root of all directories
+/Applications	Global Applications directory
+/Applications/Utilities	Global Utilities directory
+/bin	Terminal applications
+/dev/	Devices attached to the computer, such as disks
+/Library	Place for applications to store resources
+/Network	List of computers on the local network
+/System	Apple system files
+/Users	Location where macOS stores the user’s directories
+/Users/<name>	User directory (home directory)
+/usr/local	Local applications
+/Volumes/	Mounted drives and other volumes are placed in this directory
+/Volumes/<name>	Mounted volumes
+
+
+
+Shortcut	Description
+Control+A	Moves cursor to the beginning of the line
+Control+E	Moves cursor to the end of the line
+Left arrow	Moves cursor one character to the left
+Right arrow	Moves cursor one character to the right
+Control+W	Removes the word before cursor
+Control+R	Finds the previous shell command
+Control+C	Interrupts the running command
+Control+Z	Puts the running command to sleep
+Control+L	Clears the screen
+Control+U	Clears the whole line
+Control+D	Forward deletes
+If the line is empty, it will log you out
+Control+S	Stops screen updating
+Control+Q	Enables screen updating
+Control+P or Up arrow	Steps backward through previous commands
+Control+n or down arrow	Steps forward through previous commands
+
+
+
+Anything that you pipe into pbcopy will be available in your clipboard. You are not just limited to copying the contents of files to your clipboard, either. You can send a directory listing to the clipboard:
+% ls -l | pbcopy
+Or all running processes:
+% ps aux | pbcopy
+The output from the clipboard can even be used in Terminal as well.
+% pbpaste > clipboard.txt
+If you wanted to see what was in the clipboard, you can use the command by itself.
+% pbpaste
+
+
+
+To enable the chime, use:
+% sudo nvram StartupMute=%00
+To disable the chime, use:
+% sudo nvram StartupMute=%01
+To remove the override and revert to the default behavior, use:
+% sudo nvram -d StartupMute
+
+cd /Library/Receipts/ 
+
+ls -lRG  
+
+less InstallHistory.plist  
+
+system_profiler  
+
+system_profiler -listDataTypes     
+
+system_profiler SPInstallHistoryDataType
+
+
+cd /var/db/dhcpclient/leases
+/System/Library/LaunchDaemons/com.apple.dhcp6d.plist
+/private/var/db/dhcpd_leases
+
+
+ls -lG ~/Library/Preferences 
+defaults read com.apple.NetworkBrowser.plist DisableAirDrop --bool true
+
+dscl . -list /Users | grep -v _   
+
+chrome://net-internals/#dns
+
+ifconfig | grep "inet"
+ifconfig | grep "inet "
+
+defaults write com.apple.Finder AppleShowAllFiles true
+
+
+xcodebuild -version
+
+xcode-select -p
+
+ls /Applications | grep Xcode
+
+pkgutil --pkg-info=com.apple.pkg.CLTools_Executables
+
+brew install mas
+
+mas outdated
+
+
+
+echo "Hostname: $(hostname)"
+echo "Current user: $(whoami)"
+
+
+nano ~/.zshrc   
+nano ~/.zprofile   
+nano ~/.zshenv
+
+# Path to Homebrew
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# Add Homebrew Python paths
+export PATH="/opt/homebrew/opt/python@3.12/libexec/bin:$PATH"
+
+# Add additional paths as needed
+export PATH="/usr/local/bin:$PATH"
+export PATH="/usr/local/sbin:$PATH"
+
+# Set HOSTNAME
+export HOSTNAME=$(hostname)
+
+# Customize your prompt if you like
+# PS1="%n@%m %~ $ "
+
+# Enable autocompletion and add custom completion scripts
+autoload -U compinit && compinit
+
+
+source ~/.bashrc  # for bash
+source ~/.zshrc   # for zsh
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+log show --predicate 'eventMessage contains "DHCP"' --info
+
+
+log show --predicate 'eventMessage contains "en"' --info
+
+
+log show --info --predicate 'eventMessage contains "kernel"' --last 1h
+
+
+log show --info --predicate 'eventMessage contains "kernel"'
+
+
+log show --predicate 'eventMessage contains "block"' --info --last 1h
+
+
+log show --predicate 'eventMessage contains "pf"' --info --last 1h
+
+log show --predicate 'eventMessage contains "DNS"' --info
+
+log show --predicate 'eventMessage contains "DNS"' --info --last 1h
+
+
+log show --predicate 'eventMessage contains "query"' --info
+
+
+log show --predicate 'eventMessage contains "response"' --info
+
+
+log show --predicate 'eventMessage contains "mDNS"' --info
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+nano set_dns.c
+
+
+#include <SystemConfiguration/SystemConfiguration.h>
+
+static bool setDNS(CFStringRef *resolvers, CFIndex resolvers_count)
+{
+    // Create a new dynamic store reference
+    SCDynamicStoreRef ds = SCDynamicStoreCreate(NULL, CFSTR("setDNS"), NULL, NULL);
+    if (!ds) {
+        return FALSE;
+    }
+    
+    // Create an array of resolver IPs
+    CFArrayRef array = CFArrayCreate(NULL, (const void **) resolvers,
+        resolvers_count, &kCFTypeArrayCallBacks);
+    
+    // Create a dictionary with the key "ServerAddresses" and the resolver array as its value
+    CFDictionaryRef dict = CFDictionaryCreate(NULL,
+        (const void **) (CFStringRef []) { CFSTR("ServerAddresses") },
+        (const void **) &array, 1, &kCFTypeDictionaryKeyCallBacks,
+        &kCFTypeDictionaryValueCallBacks);    
+    
+    // Get the list of DNS keys
+    CFArrayRef list = SCDynamicStoreCopyKeyList(ds,
+        CFSTR("State:/Network/(Service/.+|Global)/DNS"));
+    
+    CFIndex i = 0, j = CFArrayGetCount(list);
+    if (j <= 0) {
+        CFRelease(array);
+        CFRelease(dict);
+        CFRelease(list);
+        CFRelease(ds);
+        return FALSE;
+    }
+    
+    bool ret = TRUE;
+    while (i < j) {
+        ret &= SCDynamicStoreSetValue(ds, CFArrayGetValueAtIndex(list, i), dict);
+        i++;
+    }
+
+    // Release Core Foundation objects
+    CFRelease(array);
+    CFRelease(dict);
+    CFRelease(list);
+    CFRelease(ds);
+
+    return ret;
+}
+
+int main(int argc, const char * argv[])
+{
+    // Define Google's DNS servers
+    CFStringRef resolvers[] = {
+        CFSTR("8.8.8.8"),
+        CFSTR("8.8.4.4")
+    };
+    setDNS(resolvers, (CFIndex) (sizeof resolvers / sizeof resolvers[0]));
+    
+    return 0;
+}
+
+
+clang -o set_dns set_dns.c -framework SystemConfiguration
+
+
+clang -o set_dns set_dns.c -framework SystemConfiguration -framework CoreFoundation
+
+
+sudo ./set_dns
+
+
+networksetup -getdnsservers Wi-Fi
+
+
+
+
+
+
+
+
+
+#include <SystemConfiguration/SystemConfiguration.h>
+#include <stdio.h>
+
+static bool setDNS(CFStringRef *resolvers, CFIndex resolvers_count)
+{
+    // Create a new dynamic store reference
+    SCDynamicStoreRef ds = SCDynamicStoreCreate(NULL, CFSTR("setDNS"), NULL, NULL);
+    if (!ds) {
+        printf("Failed to create SCDynamicStore reference.\n");
+        return FALSE;
+    }
+    
+    // Create an array of resolver IPs
+    CFArrayRef array = CFArrayCreate(NULL, (const void **) resolvers,
+        resolvers_count, &kCFTypeArrayCallBacks);
+    
+    // Create a dictionary with the key "ServerAddresses" and the resolver array as its value
+    CFDictionaryRef dict = CFDictionaryCreate(NULL,
+        (const void **) (CFStringRef []) { CFSTR("ServerAddresses") },
+        (const void **) &array, 1, &kCFTypeDictionaryKeyCallBacks,
+        &kCFTypeDictionaryValueCallBacks);    
+    
+    // Get the list of DNS keys
+    CFArrayRef list = SCDynamicStoreCopyKeyList(ds,
+        CFSTR("State:/Network/(Service/.+|Global)/DNS"));
+    
+    CFIndex i = 0, j = CFArrayGetCount(list);
+    if (j <= 0) {
+        printf("No DNS keys found.\n");
+        CFRelease(array);
+        CFRelease(dict);
+        CFRelease(list);
+        CFRelease(ds);
+        return FALSE;
+    }
+    
+    bool ret = TRUE;
+    while (i < j) {
+        if (!SCDynamicStoreSetValue(ds, CFArrayGetValueAtIndex(list, i), dict)) {
+            printf("Failed to set DNS value for key: %s\n", CFStringGetCStringPtr(CFArrayGetValueAtIndex(list, i), kCFStringEncodingUTF8));
+            ret = FALSE;
+        }
+        i++;
+    }
+
+    // Release Core Foundation objects
+    CFRelease(array);
+    CFRelease(dict);
+    CFRelease(list);
+    CFRelease(ds);
+
+    return ret;
+}
+
+int main(int argc, const char * argv[])
+{
+    // Define Google's DNS servers
+    CFStringRef resolvers[] = {
+        CFSTR("8.8.8.8"),
+        CFSTR("8.8.4.4")
+    };
+
+    if (setDNS(resolvers, (CFIndex) (sizeof resolvers / sizeof resolvers[0]))) {
+        printf("DNS settings updated successfully.\n");
+    } else {
+        printf("Failed to update DNS settings.\n");
+    }
+    
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+clang -o set_dns set_dns.c -framework SystemConfiguration -framework CoreFoundation
+
+
+
+
+
+
+
+
+
+#include <SystemConfiguration/SystemConfiguration.h>
+#include <stdio.h>
+
+static bool setDNS(CFStringRef *resolvers, CFIndex resolvers_count)
+{
+    // Create a new dynamic store reference
+    SCDynamicStoreRef ds = SCDynamicStoreCreate(NULL, CFSTR("setDNS"), NULL, NULL);
+    if (!ds) {
+        printf("Failed to create SCDynamicStore reference.\n");
+        return FALSE;
+    }
+    
+    // Create an array of resolver IPs
+    CFArrayRef array = CFArrayCreate(NULL, (const void **) resolvers,
+        resolvers_count, &kCFTypeArrayCallBacks);
+    
+    // Create a dictionary with the key "ServerAddresses" and the resolver array as its value
+    CFDictionaryRef dict = CFDictionaryCreate(NULL,
+        (const void **) (CFStringRef []) { CFSTR("ServerAddresses") },
+        (const void **) &array, 1, &kCFTypeDictionaryKeyCallBacks,
+        &kCFTypeDictionaryValueCallBacks);    
+    
+    // Get the list of DNS keys
+    CFArrayRef list = SCDynamicStoreCopyKeyList(ds,
+        CFSTR("State:/Network/(Service/.+|Global)/DNS"));
+    
+    if (!list) {
+        printf("Failed to get DNS key list.\n");
+        CFRelease(array);
+        CFRelease(dict);
+        CFRelease(ds);
+        return FALSE;
+    }
+
+    CFIndex i = 0, j = CFArrayGetCount(list);
+    if (j <= 0) {
+        printf("No DNS keys found.\n");
+        CFRelease(array);
+        CFRelease(dict);
+        CFRelease(list);
+        CFRelease(ds);
+        return FALSE;
+    }
+    
+    bool ret = TRUE;
+    while (i < j) {
+        CFStringRef key = CFArrayGetValueAtIndex(list, i);
+        if (!SCDynamicStoreSetValue(ds, key, dict)) {
+            printf("Failed to set DNS value for key: %s\n", CFStringGetCStringPtr(key, kCFStringEncodingUTF8));
+            ret = FALSE;
+        }
+        i++;
+    }
+
+    // Release Core Foundation objects
+    CFRelease(array);
+    CFRelease(dict);
+    CFRelease(list);
+    CFRelease(ds);
+
+    return ret;
+}
+
+int main(int argc, const char * argv[])
+{
+    // Define Google's DNS servers
+    CFStringRef resolvers[] = {
+        CFSTR("8.8.8.8"),
+        CFSTR("8.8.4.4")
+    };
+
+    if (setDNS(resolvers, (CFIndex) (sizeof resolvers / sizeof resolvers[0]))) {
+        printf("DNS settings updated successfully.\n");
+    } else {
+        printf("Failed to update DNS settings.\n");
+    }
+    
+    return 0;
+}
+
+
+
+
+clang -o set_dns set_dns.c -framework SystemConfiguration -framework CoreFoundation
+
+
+
+
+
+
+
+
+
+
+#include <SystemConfiguration/SystemConfiguration.h>
+#include <stdio.h>
+
+static bool setDNSForNetworkService(SCNetworkServiceRef networkService, CFArrayRef resolvers) {
+    SCNetworkProtocolRef networkProtocol = SCNetworkServiceCopyProtocol(networkService, kSCNetworkProtocolTypeDNS);
+    if (networkProtocol == NULL || !SCNetworkProtocolGetEnabled(networkProtocol)) {
+        return false;
+    }
+
+    CFDictionaryRef currentConfig = SCNetworkProtocolGetConfiguration(networkProtocol);
+    CFMutableDictionaryRef newConfig;
+    
+    if (currentConfig) {
+        newConfig = CFDictionaryCreateMutableCopy(NULL, 0, currentConfig);
+    } else {
+        newConfig = CFDictionaryCreateMutable(NULL, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+    }
+
+    if (resolvers == NULL) {
+        CFDictionaryRemoveValue(newConfig, kSCPropNetDNSServerAddresses);
+    } else {
+        CFDictionarySetValue(newConfig, kSCPropNetDNSServerAddresses, resolvers);
+    }
+
+    bool success = SCNetworkProtocolSetConfiguration(networkProtocol, newConfig);
+    CFRelease(newConfig);
+    CFRelease(networkProtocol);
+
+    return success;
+}
+
+static bool applyToAllNetworkServices(CFArrayRef resolvers) {
+    SCPreferencesRef prefs = SCPreferencesCreate(NULL, CFSTR("setDNS"), NULL);
+    if (prefs == NULL) {
+        return false;
+    }
+
+    SCPreferencesLock(prefs, true);
+    SCNetworkSetRef networkSet = SCNetworkSetCopyCurrent(prefs);
+    if (networkSet == NULL) {
+        SCPreferencesUnlock(prefs);
+        CFRelease(prefs);
+        return false;
+    }
+
+    CFArrayRef services = SCNetworkSetCopyServices(networkSet);
+    if (services) {
+        CFIndex count = CFArrayGetCount(services);
+        for (CFIndex i = 0; i < count; i++) {
+            SCNetworkServiceRef service = (SCNetworkServiceRef)CFArrayGetValueAtIndex(services, i);
+            setDNSForNetworkService(service, resolvers);
+        }
+        CFRelease(services);
+    }
+
+    SCPreferencesUnlock(prefs);
+    if (!SCPreferencesCommitChanges(prefs) || !SCPreferencesApplyChanges(prefs)) {
+        CFRelease(networkSet);
+        CFRelease(prefs);
+        return false;
+    }
+
+    CFRelease(networkSet);
+    CFRelease(prefs);
+
+    // Touch dynamic store
+    SCDynamicStoreRef ds = SCDynamicStoreCreate(NULL, CFSTR("setDNS"), NULL, NULL);
+    if (ds) {
+        CFRelease(ds);
+    }
+
+    // Force DHCP update
+    CFArrayRef interfaces = SCNetworkInterfaceCopyAll();
+    if (interfaces) {
+        CFIndex count = CFArrayGetCount(interfaces);
+        for (CFIndex i = 0; i < count; i++) {
+            SCNetworkInterfaceRef iface = (SCNetworkInterfaceRef)CFArrayGetValueAtIndex(interfaces, i);
+            SCNetworkInterfaceForceConfigurationRefresh(iface);
+        }
+        CFRelease(interfaces);
+    }
+
+    return true;
+}
+
+int main(int argc, const char * argv[]) {
+    CFStringRef dnsServers[] = {
+        CFSTR("8.8.8.8"),
+        CFSTR("8.8.4.4")
+    };
+
+    CFArrayRef resolvers = CFArrayCreate(NULL, (const void **)dnsServers, sizeof(dnsServers) / sizeof(CFStringRef), &kCFTypeArrayCallBacks);
+
+    if (applyToAllNetworkServices(resolvers)) {
+        printf("DNS settings updated successfully.\n");
+    } else {
+        printf("Failed to update DNS settings.\n");
+    }
+
+    CFRelease(resolvers);
+
+    return 0;
+}
+
+
+
+
+clang -o persistent_dns persistent_dns.c -framework SystemConfiguration -framework CoreFoundation
+
+
+
+sudo ./persistent_dns
+
+
+
+
+
+
+
+
+
+
+
+#include <SystemConfiguration/SystemConfiguration.h>
+#include <stdio.h>
+
+// Function to check if DNS is supported for a network service
+static bool DNSSupportForNetworkService(SCNetworkServiceRef networkService) {
+    if (!SCNetworkServiceGetEnabled(networkService)) {
+        return false;
+    }
+    SCNetworkInterfaceRef interface = SCNetworkServiceGetInterface(networkService);
+    if (!interface) {
+        return false;
+    }
+    CFArrayRef supportedProtocols = SCNetworkInterfaceGetSupportedProtocolTypes(interface);
+    if (CFArrayGetFirstIndexOfValue(supportedProtocols, CFRangeMake(0, CFArrayGetCount(supportedProtocols)), kSCNetworkProtocolTypeDNS) == kCFNotFound) {
+        return false;
+    }
+    return true;
+}
+
+// Function to set DNS resolvers for a network service
+static bool setResolversTo(CFArrayRef resolvers, SCNetworkServiceRef networkService) {
+    if (!DNSSupportForNetworkService(networkService)) {
+        return false;
+    }
+    
+    SCNetworkProtocolRef networkProtocol = SCNetworkServiceCopyProtocol(networkService, kSCNetworkProtocolTypeDNS);
+    if (!networkProtocol || !SCNetworkProtocolGetEnabled(networkProtocol)) {
+        return false;
+    }
+    
+    CFDictionaryRef currentConfig = SCNetworkProtocolGetConfiguration(networkProtocol);
+    CFMutableDictionaryRef newConfig;
+    
+    if (currentConfig) {
+        newConfig = CFDictionaryCreateMutableCopy(NULL, 0, currentConfig);
+    } else {
+        newConfig = CFDictionaryCreateMutable(NULL, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+    }
+
+    if (resolvers == NULL) {
+        CFDictionaryRemoveValue(newConfig, kSCPropNetDNSServerAddresses);
+    } else {
+        CFDictionarySetValue(newConfig, kSCPropNetDNSServerAddresses, resolvers);
+    }
+    
+    bool success = SCNetworkProtocolSetConfiguration(networkProtocol, newConfig);
+    CFRelease(newConfig);
+    CFRelease(networkProtocol);
+    
+    return success;
+}
+
+// Function to apply DNS settings to all network services
+static bool applyToNetworkServices(CFArrayRef resolvers) {
+    SCPreferencesRef prefs = SCPreferencesCreate(NULL, CFSTR("setDNS"), NULL);
+    if (!prefs) {
+        return false;
+    }
+
+    SCPreferencesLock(prefs, true);
+    SCNetworkSetRef networkSet = SCNetworkSetCopyCurrent(prefs);
+    if (!networkSet) {
+        SCPreferencesUnlock(prefs);
+        CFRelease(prefs);
+        return false;
+    }
+
+    CFArrayRef services = SCNetworkSetCopyServices(networkSet);
+    if (services) {
+        CFIndex count = CFArrayGetCount(services);
+        for (CFIndex i = 0; i < count; i++) {
+            SCNetworkServiceRef service = (SCNetworkServiceRef)CFArrayGetValueAtIndex(services, i);
+            setResolversTo(resolvers, service);
+        }
+        CFRelease(services);
+    }
+
+    SCPreferencesUnlock(prefs);
+    if (!SCPreferencesCommitChanges(prefs) || !SCPreferencesApplyChanges(prefs)) {
+        CFRelease(networkSet);
+        CFRelease(prefs);
+        return false;
+    }
+
+    CFRelease(networkSet);
+    CFRelease(prefs);
+
+    // Touch dynamic store
+    SCDynamicStoreRef ds = SCDynamicStoreCreate(NULL, CFSTR("setDNS"), NULL, NULL);
+    if (ds) {
+        CFRelease(ds);
+    }
+
+    // Force DHCP update
+    CFArrayRef interfaces = SCNetworkInterfaceCopyAll();
+    if (interfaces) {
+        CFIndex count = CFArrayGetCount(interfaces);
+        for (CFIndex i = 0; i < count; i++) {
+            SCNetworkInterfaceRef iface = (SCNetworkInterfaceRef)CFArrayGetValueAtIndex(interfaces, i);
+            SCNetworkInterfaceForceConfigurationRefresh(iface);
+        }
+        CFRelease(interfaces);
+    }
+
+    return true;
+}
+
+int main(int argc, const char * argv[]) {
+    // Define Google’s DNS servers
+    CFStringRef dnsServers[] = {
+        CFSTR("8.8.8.8"),
+        CFSTR("8.8.4.4")
+    };
+
+    CFArrayRef resolvers = CFArrayCreate(NULL, (const void **)dnsServers, sizeof(dnsServers) / sizeof(CFStringRef), &kCFTypeArrayCallBacks);
+
+    if (applyToNetworkServices(resolvers)) {
+        printf("DNS settings updated successfully.\n");
+    } else {
+        printf("Failed to update DNS settings.\n");
+    }
+
+    CFRelease(resolvers);
+
+    return 0;
+}
+
+
+
+
+
+
+
+clang -o persistent_dns persistent_dns.c -framework SystemConfiguration -framework CoreFoundation
+
+
+sudo ./persistent_dns
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#include <SystemConfiguration/SystemConfiguration.h>
+#include <CoreFoundation/CoreFoundation.h>
+
+static bool setDNS(CFStringRef *resolvers, CFIndex resolvers_count)
+{
+    // Create a new dynamic store reference
+    SCDynamicStoreRef ds = SCDynamicStoreCreate(NULL, CFSTR("setDNS"), NULL, NULL);
+    if (!ds) {
+        fprintf(stderr, "Failed to create SCDynamicStoreRef.\n");
+        return FALSE;
+    }
+    
+    // Create an array of resolver IPs
+    CFArrayRef array = CFArrayCreate(NULL, (const void **) resolvers, resolvers_count, &kCFTypeArrayCallBacks);
+    if (!array) {
+        fprintf(stderr, "Failed to create CFArrayRef.\n");
+        CFRelease(ds);
+        return FALSE;
+    }
+
+    // Create a dictionary with the key "ServerAddresses" and the resolver array as its value
+    CFDictionaryRef dict = CFDictionaryCreate(NULL,
+        (const void **) (CFStringRef []) { CFSTR("ServerAddresses") },
+        (const void **) &array, 1, &kCFTypeDictionaryKeyCallBacks,
+        &kCFTypeDictionaryValueCallBacks);
+    if (!dict) {
+        fprintf(stderr, "Failed to create CFDictionaryRef.\n");
+        CFRelease(array);
+        CFRelease(ds);
+        return FALSE;
+    }
+
+    // Get the list of DNS keys
+    CFArrayRef list = SCDynamicStoreCopyKeyList(ds,
+        CFSTR("State:/Network/(Service/.+|Global)/DNS"));
+    if (!list) {
+        fprintf(stderr, "Failed to get list of DNS keys.\n");
+        CFRelease(dict);
+        CFRelease(array);
+        CFRelease(ds);
+        return FALSE;
+    }
+    
+    CFIndex i = 0, j = CFArrayGetCount(list);
+    if (j <= 0) {
+        fprintf(stderr, "No DNS keys found.\n");
+        CFRelease(list);
+        CFRelease(dict);
+        CFRelease(array);
+        CFRelease(ds);
+        return FALSE;
+    }
+    
+    bool ret = TRUE;
+    while (i < j) {
+        if (!SCDynamicStoreSetValue(ds, CFArrayGetValueAtIndex(list, i), dict)) {
+            fprintf(stderr, "Failed to set DNS value for key: %s\n", CFStringGetCStringPtr(CFArrayGetValueAtIndex(list, i), kCFStringEncodingUTF8));
+            ret = FALSE;
+        }
+        i++;
+    }
+
+    // Release Core Foundation objects
+    CFRelease(list);
+    CFRelease(dict);
+    CFRelease(array);
+    CFRelease(ds);
+
+    return ret;
+}
+
+int main(int argc, const char * argv[])
+{
+    // Define Google's DNS servers
+    CFStringRef resolvers[] = {
+        CFSTR("8.8.8.8"),
+        CFSTR("8.8.4.4")
+    };
+    if (!setDNS(resolvers, (CFIndex) (sizeof resolvers / sizeof resolvers[0]))) {
+        fprintf(stderr, "Failed to set DNS servers.\n");
+        return 1;
+    }
+    
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+defaults read com.apple.finder
+
+defaults read com.apple.finder ShowAllFiles
+
+defaults read -g
+
+defaults read com.apple.safari HomePage
+
+defaults read com.apple.dock
+
+
+defaults read com.apple.dock
+
+defaults read com.apple.finder
+
+defaults read /Library/Preferences/SystemConfiguration/com.apple.airport.preferences
+
+defaults read com.apple.safari
+
+
+
+
