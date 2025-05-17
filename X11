@@ -1,6 +1,6 @@
 https://wiki.debian.org/Xorg#Installing_Xorg
 
-https://github.com/Xpra-org/xpra/wiki/Download
+https://wiki.debian.org/Wayland
 
 https://wiki.lpi.org/wiki/LPIC-1_Objectives_V5.0#106.1_Install_and_configure_X11
 
@@ -8,21 +8,33 @@ https://aws.amazon.com/blogs/compute/how-to-enable-x11-forwarding-from-red-hat-e
 
 https://grimoire.carcano.ch/blog/x-window-tutorial-x-display-server-howto-and-cheatsheet/#X_Display_Managers
 
+https://grimoire.carcano.ch/blog/x-window-display-manager-remote-xdmcp-and-thin-clients/
+
 https://learning.lpi.org/en/learning-materials/102-500/106/106.1/
 
-https://grimoire.carcano.ch/blog/x-window-display-manager-remote-xdmcp-and-thin-clients/
+https://learning.lpi.org/en/learning-materials/101-500/102/102.5/
 
 https://www.x.org/wiki/Building_the_X_Window_System/
 
 https://grimoire.carcano.ch/blog/wayland-tutorial-a-wayland-howto/
 
-https://learning.lpi.org/en/learning-materials/101-500/102/102.5/
-
 https://linux1st.com/1061-install-and-configure-x11.html
-
-https://linuxcapable.com/how-to-install-tasksel-on-ubuntu-linux/
 
 https://linux1st.com/1062-graphical-desktops.html
 
+https://linuxcapable.com/how-to-install-tasksel-on-ubuntu-linux/
+
 https://discussion.scottibyte.com/t/ubuntu-custom-desktop-step-by-step/486
+
+https://discussion.scottibyte.com/t/apache-guacamole-with-2fa/222
+
+https://en.wikipedia.org/wiki/List_of_Linux_distributions
+
+https://linux1st.com/images/free_lpic1_book_and_videos_jadi.pdf
+
+https://www.virtuatopia.com/index.php?title=Main_Page
+
+https://www.linuxtopia.org
+
+https://jetkvm.com
 
